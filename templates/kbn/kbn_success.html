@@ -1,0 +1,17 @@
+<!-- coordinators/kbn_success.html -->
+
+{% extends "coordinators/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success mt-5" role="alert">
+                Kbn record has been successfully created!
+            </div>
+            <div class="text-center mt-4">
+                <a href="{% url 'kbn_bus_car' %}" class="btn btn-primary">Create Another KBN Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

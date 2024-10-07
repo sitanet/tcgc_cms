@@ -1,0 +1,174 @@
+{% extends 'admin_staff/base.html' %}
+
+{% load static %}
+
+{% block content %}
+      
+            {% include 'admin_staff/includes/alerts.html' %}
+                                    
+            
+               <div class="container-fluid">
+                     <div class="row column_title">
+                         <div class="col-md-12">
+                               <div class="page_title">
+                                       <h2>Dashboard</h2>
+                               </div>
+                         </div>
+                     </div>
+           
+                     <div class="container">
+                             <header>Registration</header>
+
+                            <p style="color: red;">{{ form.errors }}</p> 
+                             <form method="POST" enctype="multipart/form-data" action="{% url 'registeruser'%}">
+                              {% csrf_token %}
+                      
+                      
+                       
+                                <div class="form first">
+                                    <div class="details personal">
+                                      
+                      
+                      
+                            <!-- <div class="image-preview-container">
+                                <div class="preview">
+                                    <img id="preview-selected-image" />
+                                </div>
+                                <label for="file-upload">Choose Photo</label>
+                                <input type="file" id="file-upload" name="image" accept="image/*" onchange="previewImage(event);" />
+                            </div> -->
+                      
+                                        <div class="fields">
+                                            <div class="input-field">
+                                                <label>First Name*</label>
+                                                <!-- <input type="text" placeholder="Enter First Name" name="first_name" required> -->
+                                                {{form.first_name}}
+                                            </div>
+                                           
+                                             <div class="input-field">
+                                                <label>Last Name*</label>
+                                                <!-- <input type="text" placeholder="Enter Last Name" name="last_name" > -->
+                                                {{form.last_name}}
+                                            </div>
+                      
+                                             <div class="input-field">
+                                                <label>Username*</label>
+                                                <!-- <input type="textarea" placeholder="Enter Address" name="address" > -->
+                                                {{form.username}}
+                                            </div>
+                                            <div class="input-field">
+                                             <label>Password*</label>
+                                             <!-- <input type="textarea" placeholder="Enter Address" name="address" > -->
+                                             {{form.password}}
+                                             </div>
+                                             <div class="input-field">
+                                                <label>Confirm Password*</label>
+                                                <!-- <input type="textarea" placeholder="Enter Address" name="address" > -->
+                                                {{form.confirm_password}}
+                                             </div>
+                      
+                                            <div class="input-field">
+                                                <label>Email*</label>
+                                                <!-- <input type="text" placeholder="Enter Nationality" name="nationality" > -->
+                                                {{form.email}}
+                                            </div>
+                      
+                                            <div class="input-field">
+                                                <label>Phone Number*</label>
+                                               
+                                                {{form.phone_number}}
+                                            </div>
+                      
+                                            <!-- <div class="input-field">
+                                             <label>Gender</label>
+                                             <select required name="gender">
+                                                 <option disabled selected>Select Gender</option>
+                                                 <option>Male</option>
+                                                 <option>Female</option>
+                                                
+                                                 
+                                             </select>
+                                         </div> -->
+<!--                       
+                                            <div class="input-field">
+                                                <label>Staff ID*</label>
+                                             
+                                                {{form.staff_id}}
+                                            </div> -->
+                      
+                                            <div class="input-field">
+                                                <label>Role*</label>
+                                               {{form.role}}
+                                            </div>
+                                           
+                      
+                                           
+                                        </div>
+                                    </div>
+                      
+                                    <div class="details ID">
+                                     
+                      
+                                        <div class="fields">
+                                           
+                      
+                                           
+                      
+                      
+                                        
+                                         
+                      
+                                             <!-- <div class="input-field">
+                                                <label>Purpose of Visit</label>
+                                                <select required name="purpose">
+                                                    <option disabled selected>Select Marital Status</option>
+                                                    <option>School</option>
+                                                    <option>Work</option>
+                                                    <option>Special Event</option>
+                                                    <option>Relocate to Ibadan</option>
+                                                    <option>Conference/Training</option>
+                                                    
+                                                </select>
+                                            </div> -->
+                                        </div>
+                      
+                      
+                                           
+                                        </div>
+                      
+                                    <button class="sumbit">
+                                                <span class="btnText">Submit</span>
+                                                <i class="uil uil-navigator"></i>
+                                            </button>
+
+                                            <!-- <button type="submit" class="btn w-100 btn-danger mt-4 shadow-sm">Submit</button> -->
+                                    </div> 
+                                </div>
+                      
+                                <div class="form second">
+                                    <div class="details address">
+                                       
+                      
+                              
+                                    </div>
+                      
+                                    <div class="details family">
+                                       
+                      
+                      
+                       
+                                          
+                      
+                       
+                                </div>
+                            </form>
+                     </div>
+           
+                           
+                  </div>
+            
+         
+            
+                 
+            
+                  {% endblock %}

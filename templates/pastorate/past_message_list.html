@@ -1,0 +1,76 @@
+{% extends "pastorate/base.html" %}
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Messages</h2>
+        </div>
+        <div class="card-body">
+            <!-- Search Form -->
+            <form method="GET" action="{% url 'house_message_list' %}" class="mb-4">
+                <div class="input-group">
+                    <input type="text" name="q" id="search-input" class="form-control" placeholder="Search by query or reply text" value="{{ query }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Messages List -->
+            <ul id="message-list" class="list-group list-group-flush">
+                {% for message in messages %}
+                <li class="list-group-item d-flex flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Query about {{ message.member.first_name }} {{ message.member.last_name }}</h5>
+                        <small>{{ message.created_at|date:"Y-m-d H:i" }}</small>
+                    </div>
+                    <p class="mb-1"><strong>From:</strong> {{ message.sender.first_name }} {{ message.sender.last_name }} ({{ message.sender.email }})</p>
+
+                    <!-- Display the household name -->
+                    <p class="mb-1"><strong>Household:</strong> 
+                        {% if message.sender.current_households.exists %}
+                            {{ message.sender.current_households.first.household_name }}
+                        {% else %}
+                            <em>No household assigned</em>
+                        {% endif %}
+                    </p>
+
+                    <p class="mb-1 body"><strong>Query:</strong> {{ message.query_text|safe }}</p>
+
+                    {% if message.reply_text %}
+                    <p class="mb-1 body"><strong>Reply:</strong> {{ message.reply_text|safe }}</p>
+                    {% else %}
+                    <p class="mb-1 text-muted"><em>No reply yet</em></p>
+                    {% endif %}
+
+                    <div class="d-flex w-100 justify-content-end">
+                        <a href="{% url 'past_message_detail' message.id %}" class="btn btn-sm btn-primary">View</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% if messages|length == 0 %}
+            <div id="no-messages" class="alert alert-warning">No messages found.</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .chat-message-body {
+        background-color: #f8f9fa;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    .list-group-item {
+        border: none;
+        border-bottom: 1px solid #ddd;
+    }
+    .list-group-item:last-child {
+        border-bottom: none;
+    }
+    .btn-secondary {
+        margin-left: 10px;
+    }
+</style>
+{% endblock %}

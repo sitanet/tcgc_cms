@@ -1,0 +1,186 @@
+{% extends "coordinators/base.html" %}
+{% block content %}
+<style>
+    .form-label-highlight {
+        font-weight: bold;
+        font-size: 1.2em; /* Increase the font size */
+        background-color: #cceeff; /* Light blue background */
+        padding: 5px; /* Add some padding */
+        border-radius: 5px; /* Optional: rounded corners */
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page_title d-flex justify-content-between align-items-center">
+                <h2>Create KBN Career Profile for {{ member.first_name }} {{ member.last_name }}</h2>
+                <a href="{% url 'registration' %}" class="btn btn-secondary shadow-sm">Back to Registration</a>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="card shadow-lg rounded-5">
+                <div class="card-body p-5">
+                    <form method="POST" class="kbn_form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <!-- Current Employment -->
+                        <div class="form-group">
+                            <label for="current_employment" class="form-label-highlight"><h5>Current Employment</h5></label>
+                            <div id="current_employment_forms">
+                                {{ current_employment_formset.management_form }}
+                                {% for form in current_employment_formset %}
+                                    <div class="current_employment_form mb-3">
+                                        {{ form.as_p }}
+                                        <div class="d-flex justify-content-end mb-2">
+                                            <button type="button" class="btn btn-danger remove-form" data-prefix="current_employment">Delete</button>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <button type="button" class="btn btn-success" id="add_current_employment">Add</button>
+                            </div>
+                        </div>
+
+                        <!-- Previous Employment -->
+                        <div class="form-group">
+                            <label for="previous_employment" class="form-label-highlight"><h5>Previous Employment</h5></label>
+                            <div id="previous_employment_forms">
+                                {{ previous_employment_formset.management_form }}
+                                {% for form in previous_employment_formset %}
+                                    <div class="previous_employment_form mb-3">
+                                        {{ form.as_p }}
+                                        <div class="d-flex justify-content-end mb-2">
+                                            <button type="button" class="btn btn-danger remove-form" data-prefix="previous_employment">Delete</button>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <button type="button" class="btn btn-success" id="add_previous_employment">Add</button>
+                            </div>
+                        </div>
+
+                        <!-- Educational Background -->
+                        <div class="form-group">
+                            <label for="educational_background" class="form-label-highlight"><h5>Educational Background</h5></label>
+                            <div id="educational_background_forms">
+                                {{ educational_background_formset.management_form }}
+                                {% for form in educational_background_formset %}
+                                    <div class="educational_background_form mb-3">
+                                        {{ form.as_p }}
+                                        <div class="d-flex justify-content-end mb-2">
+                                            <button type="button" class="btn btn-danger remove-form" data-prefix="educational_background">Delete</button>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <button type="button" class="btn btn-success" id="add_educational_background">Add</button>
+                            </div>
+                        </div>
+
+                        <!-- Other Qualifications -->
+                        <div class="form-group">
+                            <label for="other_qualification" class="form-label-highlight"><h5>Other Qualifications</h5></label>
+                            <div id="other_qualification_forms">
+                                {{ other_qualification_formset.management_form }}
+                                {% for form in other_qualification_formset %}
+                                    <div class="other_qualification_form mb-3">
+                                        {{ form.as_p }}
+                                        <div class="d-flex justify-content-end mb-2">
+                                            <button type="button" class="btn btn-danger remove-form" data-prefix="other_qualification">Delete</button>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <button type="button" class="btn btn-success" id="add_other_qualification">Add</button>
+                            </div>
+                        </div>
+
+                        {{ form.as_p }}
+
+                        <!-- Submit Button -->
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-success mt-4 shadow-sm">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateElementIndex(el, prefix, ndx) {
+            var id_regex = new RegExp('(' + prefix + '-\\d+-)');
+            var replacement = prefix + '-' + ndx + '-';
+            if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+            if (el.id) el.id = el.id.replace(id_regex, replacement);
+            if (el.name) el.name = el.name.replace(id_regex, replacement);
+        }
+
+        function cloneMore(selector, prefix) {
+            var newElement = $(selector).clone(true);
+            var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+            newElement.find(':input').each(function() {
+                var name = $(this).attr('name');
+                if (name) {
+                    name = name.replace('-' + (total-1) + '-', '-' + total + '-');
+                    var id = 'id_' + name;
+                    $(this).attr({'name': name, 'id': id}).val('');
+                }
+            });
+            newElement.find('label').each(function() {
+                var forValue = $(this).attr('for');
+                if (forValue) {
+                    forValue = forValue.replace('-' + (total-1) + '-', '-' + total + '-');
+                    $(this).attr({'for': forValue});
+                }
+            });
+            newElement.find('.remove-form').show().attr('data-prefix', prefix);
+            total++;
+            $('#id_' + prefix + '-TOTAL_FORMS').val(total);
+            $(selector).after(newElement);
+        }
+
+        function deleteForm(prefix, btn) {
+            var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
+            if (total > 1) {
+                btn.closest('.' + prefix + '_form').remove();
+                var forms = $('.' + prefix + '_form');
+                $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
+                for (var i = 0; i < forms.length; i++) {
+                    $(forms.get(i)).find(':input').each(function() {
+                        updateElementIndex(this, prefix, i);
+                    });
+                }
+            }
+        }
+
+        $('#add_current_employment').click(function() {
+            cloneMore('.current_employment_form:last', 'current_employment');
+        });
+
+        $('#add_previous_employment').click(function() {
+            cloneMore('.previous_employment_form:last', 'previous_employment');
+        });
+
+        $('#add_educational_background').click(function() {
+            cloneMore('.educational_background_form:last', 'educational_background');
+        });
+
+        $('#add_other_qualification').click(function() {
+            cloneMore('.other_qualification_form:last', 'other_qualification');
+        });
+
+        $(document).on('click', '.remove-form', function() {
+            deleteForm($(this).attr('data-prefix'), $(this));
+        });
+
+        $('.remove-form').hide(); // Hide the delete button on the initial forms
+    });
+</script>
+{% endblock %}

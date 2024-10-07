@@ -1,0 +1,169 @@
+{% extends "coordinators/base.html" %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="card shadow-lg rounded-5">
+                <div class="card-header bg-white text-white text-left">
+                    <h3>Create Family for {{ member.first_name }} {{ member.last_name }}</h3>
+                </div>
+                <div class="card-body p-5">
+                    <form method="POST" class="chart_of_account" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% if messages %}
+                            <div class="alert alert-info">
+                                <ul class="list-unstyled">
+                                    {% for message in messages %}
+                                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        {{ family_form.errors }}
+                        {{ family_form.non_field_errors }}
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="family_name">Family Name</label>
+                                <input type="text" class="form-control bg-light" id="family_name" name="family_name" >
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                                <label for="address">Address</label>
+                                <input type="text" class="form-control bg-light" id="address" name="address" >
+                            </div>
+                        </div>
+
+                        <div class="form-group d-none">
+                            <label>Team Lead</label>
+                            <select id="team_lead" name="team_lead" class="form-control bg-light">
+                                {% for team_lead in team_leads %}
+                                    <option value="{{ team_lead.id }}" {% if team_lead.id == family_form.team_lead.value %}selected{% endif %}>{{ team_lead.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="wife_search">Search Wife</label>
+                                <input type="text" class="form-control bg-light" id="wife_search" onkeyup="searchWife()">
+                                <input type="hidden" id="wife_id" name="wife_id">
+                                <input type="text" class="form-control bg-light mt-2" id="wife_name" readonly>
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                                <div id="wife_results" class="search-results mt-4"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Team Member</label>
+                            <select id="team_member" name="team_member" class="form-control bg-light">
+                                <option value="">Select a Team Member</option>
+                                {% for team_member in team_members %}
+                                    <option value="{{ team_member.team_lead_id }}" {% if team_member.team_lead_id == family_form.team_member.value %}selected{% endif %}>{{ team_member.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Children</label>
+                            <div id="children_fields"></div>
+                            <button type="button" class="btn btn-info mt-2" onclick="addChildField()">Add Child</button>
+                            <input type="hidden" id="children_data" name="children">
+                        </div>
+
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-success mt-4 shadow-sm">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .search-results {
+        margin-top: 10px;
+        max-height: 200px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #f9f9f9;
+    }
+
+    .search-results .wife-result-item {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        background-color: #fff;
+        transition: background-color 0.3s;
+        font-weight: bold;
+    }
+
+    .search-results .wife-result-item:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+<script>
+    function searchWife() {
+        var query = document.getElementById('wife_search').value;
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '{% url "search_wife" %}?q=' + query, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var resultsContainer = document.getElementById('wife_results');
+                resultsContainer.innerHTML = xhr.responseText;
+            }
+        };
+        xhr.send();
+    }
+
+    function selectWife(wifeId, wifeName) {
+        document.getElementById('wife_id').value = wifeId;
+        document.getElementById('wife_name').value = wifeName;
+        document.getElementById('wife_results').innerHTML = '';
+    }
+
+    function addChildField() {
+        var childrenFields = document.getElementById('children_fields');
+        var index = childrenFields.children.length / 2;
+
+        var nameField = document.createElement('div');
+        nameField.className = 'form-group col-md-6';
+        nameField.innerHTML = '<label for="child_name_' + index + '">Child Name</label><input type="text" class="form-control bg-light" id="child_name_' + index + '">';
+
+        var ageField = document.createElement('div');
+        ageField.className = 'form-group col-md-6';
+        ageField.innerHTML = '<label for="child_age_' + index + '">Child Age</label><input type="number" class="form-control bg-light" id="child_age_' + index + '">';
+
+        var row = document.createElement('div');
+        row.className = 'form-row';
+        row.appendChild(nameField);
+        row.appendChild(ageField);
+
+        childrenFields.appendChild(row);
+    }
+
+    function collectChildrenData() {
+        var childrenFields = document.getElementById('children_fields');
+        var childrenData = [];
+        var rows = childrenFields.querySelectorAll('.form-row');
+        rows.forEach(row => {
+            var name = row.querySelector('input[type="text"]').value;
+            var age = row.querySelector('input[type="number"]').value;
+            childrenData.push({ 'name': name, 'age': age });
+        });
+        document.getElementById('children_data').value = JSON.stringify(childrenData);
+    }
+
+    document.querySelector('form').addEventListener('submit', function(e) {
+        collectChildrenData();
+    });
+</script>
+{% endblock %}

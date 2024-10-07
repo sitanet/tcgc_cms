@@ -1,0 +1,193 @@
+{% extends 'kbn_career/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>Dashboard</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row column1">
+            <!-- <div class="col-md-6 col-lg-3">
+                <a href="{% url 'active_member' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-users" style="font-size: 2em; color: green;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Active Member: </span><br><span style="color: #FF5F1F;"><b>{{ member }}</b> </span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+            <!-- <div class="col-md-6 col-lg-3">
+                <a href="{% url 'member_inctive' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-user-slash" style="font-size: 2em; color: red;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Inactive Member: </span><br><span style="color: #FF5F1F;"><b>{{ member_inctive }}</b> </span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+            <!-- <div class="col-md-6 col-lg-3">
+                <a href="{% url 'member_male' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-male" style="font-size: 2em; color: blue;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Male Member: </span><br><span style="color: #FF5F1F;"><b>{{ member_male }}</b> </span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+            <!-- <div class="col-md-6 col-lg-3">
+                <a href="{% url 'member_female' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-female" style="font-size: 2em; color: pink;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Female Member: </span><br><span style="color: #FF5F1F;"><b>{{ member_female }}</b> </span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+            <!-- <div class="col-md-6 col-lg-3">
+                <a href="{% url 'member_married' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-ring" style="font-size: 2em; color: gold;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Married Member: </span><br><span style="color: #FF5F1F;"><b>{{ member_married }}</b> </span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+            <!-- <div class="col-md-6 col-lg-3">
+                <a href="{% url 'member_single' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-user" style="font-size: 2em; color: gray;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Single Member: </span><br><span style="color: #FF5F1F;"><b>{{ member_single }}</b> </span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+            <!-- <div class="col-md-6 col-lg-3">
+                <a href="{% url 'facilitator' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-chalkboard-teacher" style="font-size: 2em; color: purple;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">KBN Facilitator: </span><br><span style="color: #FF5F1F;"><b>{{ facilitator }}</b> </span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+            <!-- <div class="col-md-6 col-lg-3">
+                <a href="{% url 'student' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-graduation-cap" style="font-size: 2em; color: navy;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">KBN Student: </span><br><span style="color: #FF5F1F;"><b>{{ student }}</b> </span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+            <!-- <div class="col-md-6 col-lg-3">
+                <a href="{% url 'career' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-briefcase" style="font-size: 2em; color: darkcyan;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">KBN Career: </span><br><span style="color: #FF5F1F;"><b>{{ career }}</b> </span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+            <!-- <div class="col-md-6 col-lg-3">
+                <a href="{% url 'business' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-chart-line" style="font-size: 2em; color: darkblue;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">KBN Business: </span><br><span style="color: #FF5F1F;"><b>{{ business }}</b> </span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<!-- Add Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+{% endblock %}

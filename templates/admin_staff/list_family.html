@@ -1,0 +1,56 @@
+{% extends "admin_staff/base.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page_title">
+                <h2>Family Members List</h2>
+            </div>
+        </div>
+        <!-- SearchTable -->
+        <div class="container deposit p-5 shadow-lg rounded rounded-5">
+            <div class="row mt-3 table-row1">
+                <a href="" style="color: green; font-weight: bold; text-align: right; display: block;">Families Menu</a>
+                <div class="col-md-12 justify-content-center text-center m-auto">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control form-control-lg bg-white border" placeholder="Search..." id="searchInput">
+                        <div class="">
+                            <button class="btn btn-success py-3" type="button" onclick="searchTable()">Search</button>
+                        </div>
+                    </div>
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li style="font-size: 30px; color: brown; font-weight: bold;"  {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <!-- table -->
+                    <table class="table table-responsive table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Family Name</th>
+                                <th>Husband's First Name</th>
+                                <th>Wife's First Name</th>
+                                <th>Family Address</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for member in family %}
+                            <tr>
+                                <td>{{ member.family_name }}</td>
+                                <td>{{ member.husband.first_name }}</td>
+                                <td>{{ member.wife.first_name }}</td>
+                                <td>{{ member.address}}</td>
+                                <td><a href="{% url 'family_detail' member.id %}" class="btn btn-info">View Details</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

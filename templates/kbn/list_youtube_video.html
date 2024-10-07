@@ -1,0 +1,66 @@
+{% extends 'kbn/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">YouTube Video List</h2>
+    <table class="table table-hover table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Link</th>
+                <th scope="col">Category</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for video in videos %}
+                <tr>
+                    <td>{{ video.title }}</td>
+                    <td>
+                        <a href="{{ video.link }}" target="_blank" class="btn btn-primary btn-sm">Watch</a>
+                    </td>
+                    <td>{{ video.get_category_display }}</td>
+                    <td>
+                        <a href="{% url 'delete_video' video.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    h2 {
+        color: #343a40;
+    }
+    table {
+        margin-top: 20px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    th {
+        text-align: center;
+    }
+    td {
+        vertical-align: middle;
+        text-align: center;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+    .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
+</style>
+{% endblock %}

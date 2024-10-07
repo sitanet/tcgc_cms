@@ -1,0 +1,67 @@
+{% extends "coordinators/base.html" %}
+
+{% block content %}
+<div class="midde_cont">
+   <div class="container-fluid">
+      <div class="row column_title">
+         <div class="col-md-12">
+            <div class="page_title">
+               <h2>Business Profile for {{ business.business_name }}</h2>
+            </div>
+         </div>
+      </div>
+
+      <div class="col-md-12">
+         <div class="white_shd full margin_bottom_30">
+            <div class="table_section padding_infor_info">
+               <div class="table-responsive-sm">
+                  <div class="card shadow-lg rounded-5 mb-4">
+                     <div class="card-body p-5">
+                        <!-- Business Image -->
+                        <div class="mb-4 text-center">
+                           {% if business.member.image %}
+                           <img src="{{ business.member.image.url }}" alt="{{ business.business_name }}" class="img-fluid rounded-circle" style="max-width: 150px;">
+                           {% else %}
+                           <img src="path/to/default_image.jpg" alt="{{ business.business_name }}" class="img-fluid rounded-circle" style="max-width: 150px;">
+                           {% endif %}
+                        </div>
+                        
+                        <!-- Brief Description -->
+                        <div class="mb-4">
+                           <h5 class="text-primary border-bottom pb-2">Brief Description</h5>
+                           <p class="border p-3 rounded">{{ business.brief_description }}</p>
+                        </div>
+
+                        <!-- Is Registered -->
+                        <div class="mb-4">
+                           <h5 class="text-primary border-bottom pb-2">Is Registered</h5>
+                           <p class="border p-3 rounded">{{ business.is_registered|yesno:"Yes,No" }}</p>
+                        </div>
+
+                        <!-- Years of Experience -->
+                        <div class="mb-4">
+                           <h5 class="text-primary border-bottom pb-2">Years of Experience</h5>
+                           <p class="border p-3 rounded">{{ business.years_of_experience }}</p>
+                        </div>
+
+                        <!-- Number of Employees -->
+                        <div class="mb-4">
+                           <h5 class="text-primary border-bottom pb-2">Number of Employees</h5>
+                           <p class="border p-3 rounded">{{ business.number_of_employees }}</p>
+                        </div>
+
+                        <!-- Business Sector -->
+                        <div class="mb-4">
+                           <h5 class="text-primary border-bottom pb-2">Business Sector</h5>
+                           <p class="border p-3 rounded">{{ business.get_business_sector_display }}</p>
+                        </div>
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}

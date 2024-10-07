@@ -1,0 +1,36 @@
+{% extends "pastorate/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container-fluid mt-5">
+    <h2>Reply to Message: {{ original_message.subject }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            {{ form.subject }}
+        </div>
+        <div class="form-group">
+            <label for="body">Message</label>
+            {{ form.body }}
+        </div>
+        <button type="submit" class="btn btn-success">Send Reply</button>
+    </form>
+</div>
+
+<script src="{% static 'tinymce/tinymce.min.js' %}"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        height: 300,
+        menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+        ],
+        toolbar: 'undo redo | formatselect | bold italic backcolor | \
+                  alignleft aligncenter alignright alignjustify | \
+                  bullist numlist outdent indent | removeformat | help'
+    });
+</script>
+{% endblock %}

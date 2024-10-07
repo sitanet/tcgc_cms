@@ -1,0 +1,221 @@
+{% extends 'pastorate/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <img class="logo_icon img-responsive" src="{% static 'images/logo/logo.png' %}" alt="LOGO" />
+        <h2 class="text-primary">Asset Depreciation Report</h2>
+        <button class="btn btn-primary print-button" onclick="window.print()">Print Report</button>
+    </div>
+    <div class="table-responsive">
+        {% for department, assets in departments.items %}
+        <div class="department-section mb-4">
+            <h3 class="text-secondary">{{ department }}</h3>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Asset Class</th>
+                        <th>Purchase Date</th>
+                        <th>Cost</th>
+                        <th>Unit</th>
+                        <th>Total Cost</th>
+                        <th>Total Depreciation</th>
+                        <th>Remaining Value</th>
+                        <th>Months Depreciated</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for asset in assets %}
+                    <tr>
+                        <td>{{ asset.name }}</td>
+                        <td>{{ asset.asset_class }}</td>
+                        <td>{{ asset.purchase_date|date:"Y-m-d" }}</td>
+                        <td>{{ asset.cost|floatformat:2 }}</td>
+                        <td>{{ asset.unit }}</td>
+                        <td>{{ asset.total_cost|floatformat:2 }}</td>
+                        <td>{{ asset.total_depreciation|floatformat:2 }}</td>
+                        <td>{{ asset.remaining_value|floatformat:2 }}</td>
+                        <td>{{ asset.months_depreciated }}</td>
+                        <td style="{% if asset.remaining_value <= 0 %}background-color: #dc3545; color: white{% else %}background-color: #28a745; color: white{% endif %};">
+                            {% if asset.remaining_value <= 0 %}
+                            Depreciated
+                            {% else %}
+                            Active
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="10" class="text-center">No assets found in this department.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% empty %}
+        <p>No departments found.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    /* General Styles */
+    body {
+        font-family: 'Arial', sans-serif;
+    }
+
+    .container {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+    }
+
+    h3 {
+        margin-top: 20px;
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        color: #343a40;
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #212529;
+        border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
+
+    .table thead th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #dee2e6;
+        background-color: #343a40 !important;
+        color: #fff !important;
+        text-align: center;
+    }
+
+    .table tbody + tbody {
+        border-top: 2px solid #dee2e6;
+    }
+
+    .table-bordered {
+        border: 1px solid #dee2e6;
+    }
+
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid #dee2e6;
+    }
+
+    .table-bordered thead th,
+    .table-bordered thead td {
+        border-bottom-width: 2px;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 0, 0, 0.075);
+    }
+
+    .thead-dark th {
+        color: #fff;
+        background-color: #343a40 !important;
+        border-color: #454d55;
+        text-align: center;
+    }
+
+    .bg-danger {
+        background-color: #dc3545 !important;
+    }
+
+    .bg-success {
+        background-color: #28a745 !important;
+    }
+
+    .text-white {
+        color: #fff !important;
+    }
+
+    .print-button {
+        display: inline-block;
+    }
+
+    .logo_icon {
+        width: 100px;
+        height: auto;
+    }
+
+    /* Print Styles */
+    @media print {
+        .print-button {
+            display: none;
+        }
+
+        body {
+            -webkit-print-color-adjust: exact;
+            font-size: 12px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            box-shadow: none;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        h2, h3 {
+            color: #000000;
+        }
+
+        .table thead {
+            background-color: #343a40 !important;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05) !important;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .bg-danger {
+            background-color: #dc3545 !important;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .bg-success {
+            background-color: #28a745 !important;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .table {
+            page-break-after: auto;
+        }
+
+        .table tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+
+        .table td, .table th {
+            padding: 0.5rem;
+        }
+    }
+</style>
+{% endblock %}

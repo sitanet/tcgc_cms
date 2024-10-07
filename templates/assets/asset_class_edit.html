@@ -1,0 +1,23 @@
+<!-- asset_class_edit.html -->
+{% extends 'mis/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h1>Edit Asset Class: {{ asset_class.name }}</h1>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="{% url 'asset_class_detail' asset_class.pk %}" class="btn btn-secondary ml-2">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

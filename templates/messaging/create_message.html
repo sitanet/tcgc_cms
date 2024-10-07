@@ -1,0 +1,51 @@
+{% extends "pastorate/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Send Message</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group mb-4">
+                    <label for="recipient_role" class="form-label">Recipient Role</label>
+                    <select name="recipient_role" id="recipient_role" class="form-select">
+                        {% for value, name in form.recipient_role.field.choices %}
+                            <option value="{{ value }}" {% if form.recipient_role.value == value %}selected{% endif %}>{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group mb-4">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="text" name="subject" id="subject" class="form-control" value="{{ form.subject.value }}">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="body" class="form-label">Message</label>
+                    <textarea name="body" id="body" class="form-control" rows="10">{{ form.body.value }}</textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Send Message</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'tinymce/tinymce.min.js' %}"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea#body',
+        height: 300,
+        menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+        ],
+        toolbar: 'undo redo | formatselect | bold italic backcolor | \
+                  alignleft aligncenter alignright alignjustify | \
+                  bullist numlist outdent indent | removeformat | help',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+    });
+</script>
+{% endblock %}

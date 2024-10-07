@@ -1,0 +1,54 @@
+{% extends "coordinators/base.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page_title d-flex justify-content-between">
+                <h2>Create Child Record for {{ member.first_name }} {{ member.last_name }}</h2>
+                <a href="{% url 'registration' %}" class="btn btn-secondary">Back to Registration</a>
+            </div>
+        </div>
+        
+        <div class="col-md-12">
+            <div class="card shadow-lg rounded-5">
+                <div class="card-body p-5">
+                    <form method="POST" class="student_form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.errors }}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="name">Name</label>
+                                {{ form.name }}
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                                <label for="school">School</label>
+                                {{ form.school }}
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="class_name">Class</label>
+                                {{ form.class_name }}
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="allergies">Allergies (Optional)</label>
+                                {{ form.allergies }}
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="medical_conditions">Medical Conditions (Optional)</label>
+                                {{ form.medical_conditions }}
+                            </div>
+
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-success mt-4 shadow-sm">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

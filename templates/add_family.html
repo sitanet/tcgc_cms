@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Family</title>
+    <style>
+        .child-section {
+            margin-top: 20px;
+        }
+        .child-form {
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        function addChildForm() {
+            var childSection = document.getElementById('child-section');
+            var childForms = childSection.getElementsByClassName('child-form');
+            if (childForms.length >= 4) {
+                alert('You can only add up to 4 children.');
+                return;
+            }
+            var newChildForm = document.createElement('div');
+            newChildForm.classList.add('child-form');
+            newChildForm.innerHTML = `
+                <label>Full Name:</label>
+                <input type="text" name="children_full_name[]" required>
+                <label>Date of Birth:</label>
+                <input type="date" name="children_date_of_birth[]" required>
+                <label>Gender:</label>
+                <select name="children_gender[]" required>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                </select>
+                <label>School Name:</label>
+                <input type="text" name="children_school_name[]">
+                <label>Grade:</label>
+                <input type="text" name="children_grade[]">
+                <button type="button" onclick="removeChildForm(this)">Remove</button>
+            `;
+            childSection.appendChild(newChildForm);
+        }
+
+        function removeChildForm(button) {
+            var childForm = button.parentElement;
+            childForm.parentElement.removeChild(childForm);
+        }
+    </script>
+</head>
+<body>
+    <h1>Add Family</h1>
+    <form method="post" action="{% url 'add_family' %}">
+        {% csrf_token %}
+        <div>
+            <label>Husband:</label>
+            <input type="text" name="husband" required>
+        </div>
+        <div>
+            <label>Wife:</label>
+            <input type="text" name="wife" required>
+        </div>
+        <div>
+            <label>Relation Type:</label>
+            <input type="text" name="relation_type" required>
+        </div>
+        <div>
+            <label>Full Name:</label>
+            <input type="text" name="full_name" required>
+        </div>
+        <div>
+            <label>Date of Birth:</label>
+            <input type="date" name="date_of_birth" required>
+        </div>
+        <div>
+            <label>Gender:</label>
+            <select name="gender" required>
+                <option value="1">Male</option>
+                <option value="2">Female</option>
+            </select>
+        </div>
+        <div>
+            <label>School Name:</label>
+            <input type="text" name="school_name">
+        </div>
+        <div>
+            <label>Grade:</label>
+            <input type="text" name="grade">
+        </div>
+        <div>
+            <label>Phone Number:</label>
+            <input type="text" name="phone_no">
+        </div>
+        <div>
+            <label>Email:</label>
+            <input type="email" name="email">
+        </div>
+        <div>
+            <label>Address:</label>
+            <input type="text" name="address">
+        </div>
+        <h2>Children</h2>
+        <div id="child-section" class="child-section">
+            <!-- Child forms will be added here -->
+        </div>
+        <button type="button" onclick="addChildForm()">Add Child</button>
+        <button type="submit">Add Family</button>
+    </form>
+</body>
+</html>

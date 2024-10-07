@@ -1,0 +1,122 @@
+{% extends "coordinators/base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Households with Complaints</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #eef2f7;
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px 20px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-header h2 {
+            margin: 0;
+            font-size: 1.25rem;
+        }
+        .card-header button {
+            width: 100%;
+            text-align: left;
+            font-weight: bold;
+            color: #fff;
+            background-color: transparent;
+            border: none;
+            padding: 0;
+        }
+        .card-header button:hover {
+            color: #ffd700;
+        }
+        .toggle-icon {
+            font-size: 1.25rem;
+            transition: transform 0.2s;
+        }
+        .collapsed .toggle-icon {
+            transform: rotate(180deg);
+        }
+        .card-body {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+            border-top: none;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        .member {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .member a {
+            text-decoration: none;
+            color: #343a40;
+        }
+        .member a:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <h1 class="text-center mb-4">Households and Members with Complaints</h1>
+        <div class="accordion" id="accordionHouseholds">
+            {% for household, members in household_members_with_complaints %}
+                <div class="card">
+                    <div class="card-header" id="heading{{ household.id }}" data-toggle="collapse" data-target="#collapse{{ household.id }}" aria-expanded="true" aria-controls="collapse{{ household.id }}">
+                        <h2 class="mb-0">
+                            <button type="button">
+                                {{ household.household_name }}
+                            </button>
+                        </h2>
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </div>
+                    <div id="collapse{{ household.id }}" class="collapse" aria-labelledby="heading{{ household.id }}" data-parent="#accordionHouseholds">
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                {% for member in members %}
+                                    <li class="member">
+                                        <a href="{% url 'household_complaints' household.id %}">{{ member.member }} - {{ member.get_position_display }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.collapse').on('shown.bs.collapse', function() {
+                $(this).prev('.card-header').find('.toggle-icon').removeClass('collapsed');
+            }).on('hidden.bs.collapse', function() {
+                $(this).prev('.card-header').find('.toggle-icon').addClass('collapsed');
+            });
+        });
+    </script>
+</body>
+</html>
+{% endblock %}

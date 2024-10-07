@@ -1,0 +1,65 @@
+<!-- templates/coordinators/nysc_form.html -->
+
+{% extends "coordinators/base.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page_title d-flex justify-content-between">
+                <h2>Create NYSC Record for {{ member.first_name }} {{ member.last_name }}</h2>
+                <a href="{% url 'registration' %}" class="btn btn-secondary">Back to Registration</a>
+            </div>
+        </div>
+        
+        <div class="col-md-12">
+            <div class="card shadow-lg rounded-5">
+                <div class="card-body p-5">
+                    <form method="POST" class="student_form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.errors }}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="parent_address">Parent Address</label>
+                                {{ form.parent_address }}
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                                <label for="parent_phone_number">Parent Phone Number</label>
+                                {{ form.parent_phone_number }}
+                            </div>
+
+                            <div class="col-md-12">
+                                <h5 style="background-color: lightblue; padding: 10px; border-radius: 5px;">Educational Background</h5>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="university_name">University Name</label>
+                                {{ form.university_name }}
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="program_of_study">Program of Study</label>
+                                {{ form.program_of_study }}
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="year_of_graduation">Year of Graduation</label>
+                                {{ form.year_of_graduation }}
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="place_of_assignment">Place of Assignment</label>
+                                {{ form.place_of_assignment }}
+                            </div>
+
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-success mt-4 shadow-sm">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "admin_staff/base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    .original-message {
+        background-color: #f8f9fa !important; /* Use !important to ensure styles are applied */
+    }
+
+    .reply-message {
+        background-color: #e9ecef !important; /* Use !important to ensure styles are applied */
+    }
+</style>
+
+<div class="container-fluid mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Messages</h2>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                {% for message in messages %}
+                <li class="list-group-item {% if not message.replies.exists %}original-message{% endif %}">
+                    <div>
+                        <strong>{{ message.subject }}</strong>
+                        <br>
+                        <small>From: {{ message.sender.first_name }} {{ message.sender.last_name }} ({{ message.sender.email }})</small>
+                        <br>
+                        <small>Date: {{ message.created_at|date:"Y-m-d H:i" }}</small>
+                        <br>
+                        <div>{{ message.body|safe }}</div>
+                    </div>
+                    {% if message.replies.exists %}
+                    <ul class="list-group mt-3">
+                        {% for reply in message.replies.all %}
+                        <li class="list-group-item reply-message">
+                            <div>
+                                <strong>Re: {{ reply.subject }}</strong>
+                                <br>
+                                <small>From: {{ reply.sender.first_name }} {{ reply.sender.last_name }} ({{ reply.sender.email }})</small>
+                                <br>
+                                <small>Date: {{ reply.created_at|date:"Y-m-d H:i" }}</small>
+                                <br>
+                                <div>{{ reply.body|safe }}</div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <a href="{% url 'message_detail' message.id %}" class="btn btn-sm btn-primary mt-3">Reply</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

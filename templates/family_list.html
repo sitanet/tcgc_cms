@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Family List</title>
+</head>
+<body>
+    <h1>Family List</h1>
+    <ul>
+        {% for family in families %}
+            <li>
+                <strong>Parents:</strong> {{ family.husband.first_name }} {{ family.husband.last_name }} & {{ family.wife.first_name }} {{ family.wife.last_name }}
+                <ul>
+                    <li><strong>Family Relation:</strong> {{ family.relation_type }}</li>
+                    <li><strong>Full Name:</strong> {{ family.full_name }}</li>
+                    <li><strong>Date of Birth:</strong> {{ family.date_of_birth }}</li>
+                    <li><strong>Gender:</strong> {{ family.get_gender_display }}</li>
+                    <li><strong>School Name:</strong> {{ family.school_name }}</li>
+                    <li><strong>Grade:</strong> {{ family.grade }}</li>
+                    <li><strong>Phone Number:</strong> {{ family.phone_no }}</li>
+                    <li><strong>Email:</strong> {{ family.email }}</li>
+                    <li><strong>Address:</strong> {{ family.address }}</li>
+                </ul>
+                <h3>Children:</h3>
+                <ul>
+                    {% for child in family.children.all %}
+                        <li>
+                            <ul>
+                                <li><strong>Full Name:</strong> {{ child.full_name }}</li>
+                                <li><strong>Date of Birth:</strong> {{ child.date_of_birth }}</li>
+                                <li><strong>Gender:</strong> {{ child.get_gender_display }}</li>
+                                <li><strong>School Name:</strong> {{ child.school_name }}</li>
+                                <li><strong>Grade:</strong> {{ child.grade }}</li>
+                            </ul>
+                        </li>
+                    {% empty %}
+                        <li>No children</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

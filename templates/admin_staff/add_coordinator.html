@@ -1,0 +1,117 @@
+{% extends 'admin_staff/base.html' %}
+
+{% load static %}
+
+{% block content %}
+            
+                    
+                       
+
+                
+                       
+                        {% include 'admin_staff/includes/alerts.html' %}
+                        
+                            {{ form.errors }}
+                        
+                        
+
+                            <div class="container-fluid">
+                                <div class="row column_title">
+                                    <div class="col-md-12">
+                                          <div class="page_title">
+                                                  <h2>Dashboard</h2>
+                                          </div>
+                                    </div>
+                                </div>
+                      
+                                <div class="container">
+                                        <header>Coordinator</header>
+           
+           
+                                        <form method="POST" enctype="multipart/form-data">
+                                         {% csrf_token %}
+                                 
+                                 
+                                  
+                                           <div class="form first">
+                                               <div class="details personal">
+                                                 
+                                 
+                                 
+                                     
+                                 
+                                                   <div class="fields">
+                                                      
+                                                           
+                                                         
+                                                     
+                                                       
+                                                      
+                                 
+                                                      
+           
+                                                 
+           
+                                                     
+                                 
+                                                       
+                                                        
+           
+                                                     
+           
+                                 
+                                                     
+           
+                                                       <div class="input-field1">
+                                                           <label>Team Lead</label>
+                                                           <select id="team_lead" name="name" onchange="ddlselect();">
+                                                               <option value="">Select a Team Lead</option>
+                                                               {% for team_lead in team_lead %}
+                                                                   <option value="{{ team_lead.id }}">{{ team_lead.username }}</option>
+                                                               {% endfor %}
+                                                           </select>
+                                                       </div>
+                                                     
+                                                      
+                
+                                                      
+                                                      
+                                 
+                                                      
+           
+                                                       
+                                                      
+                                                        
+           
+                                                       
+                   
+                                                   </div>
+                                               </div>
+                                 
+                                             
+                                 
+                                               <button class="sumbit">
+                                                           <span class="btnText">Submit</span>
+                                                           <i class="uil uil-navigator"></i>
+                                                       </button>
+           
+                                                       <!-- <button type="submit" class="btn w-100 btn-danger mt-4 shadow-sm">Submit</button> -->
+                                               </div> 
+                                           </div>
+                                 
+                                        
+                                       </form>
+                                </div>
+                      
+                                      
+                             </div>
+            
+                        
+                    
+
+
+                    
+     
+
+
+{% endblock %}

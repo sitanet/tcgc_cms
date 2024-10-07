@@ -1,0 +1,23 @@
+{% extends 'household_head/base.html' %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <h2 class="mb-4 text-center">Send Query about {{ member.first_name }} {{ member.last_name }}</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <!-- Hidden input for the subject, pre-filled with the member's name -->
+                {{ form.subject.as_hidden }}
+
+                <div class="form-group">
+                    <label for="id_query_text">Your Query</label>
+                    {{ form.query_text }}  <!-- Render the textarea for the query -->
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Send Query</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

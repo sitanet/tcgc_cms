@@ -1,0 +1,62 @@
+{% extends 'coordinators/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title d-flex justify-content-between">
+                    <h2>Dashboard</h2>
+                    <a href="{% url 'registration' %}" class="btn btn-secondary">Back to Registration</a>
+                </div>
+            </div>
+        </div>
+
+        {% include 'coordinators/includes/alerts.html' %}
+        
+        <div class="row column1">
+            <div class="col-md-6 col-lg-4">
+                <a href="{% url 'list_members_bus_kbn' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fa fa-users" style="font-size: 2em; color: orange;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">KBN Business</span> <br> <span style="color: #FF5F1F;"><b>{{ member_inctive }}</b></span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <a href="{% url 'list_members_car_kbn' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fa fa-briefcase" style="font-size: 2em; color: orange;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">KBN Career</span> <br><span style="color: #FF5F1F;"><b>{{ member_female }}</b></span> </p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+{% endblock %}

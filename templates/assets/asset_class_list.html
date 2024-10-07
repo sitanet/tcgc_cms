@@ -1,0 +1,30 @@
+<!-- asset_class_list.html -->
+{% extends 'mis/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Asset Classes</h2>
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'asset_class_create' %}" class="btn btn-primary">Add Asset Class</a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for asset_class in asset_classes %}
+            <tr onclick="window.location='{% url 'asset_class_detail' asset_class.pk %}'" style="cursor:pointer;">
+                <td>{{ asset_class.name }}</td>
+                <td>
+                    <a href="{% url 'asset_class_detail' asset_class.pk %}" class="btn btn-info btn-sm">Detail</a>
+                    <a href="{% url 'asset_class_delete' asset_class.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
