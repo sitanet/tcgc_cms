@@ -1,0 +1,59 @@
+{% extends 'career/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>Resource</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row column1">
+            <div class="col-md-6 col-lg-3">
+                <a href="{% url 'career_document_list' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <!-- Document icon colored orange -->
+                                <i class="far fa-file-alt" style="font-size: 2em; color: orange;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Display Document </span><br><span style="color: #FF5F1F;"><b>{{ member }}</b> </span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <a href="{% url 'career_video_list' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <!-- Video icon colored red -->
+                                <i class="far fa-play-circle" style="font-size: 2em; color: red;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Display Video </span><br><span style="color: #FF5F1F;"><b>{{ member }}</b> </span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+{% endblock %}

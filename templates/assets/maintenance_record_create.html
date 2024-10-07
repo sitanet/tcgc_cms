@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Maintenance Record</title>
+</head>
+<body>
+    <h1>Add Maintenance Record</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <label for="id_maintenance_date">Maintenance Date:</label>
+            {{ form.maintenance_date }}
+        </div>
+        <div>
+            <label for="id_description">Description:</label>
+            {{ form.description }}
+        </div>
+        <div>
+            <label for="id_cost">Cost:</label>
+            {{ form.cost }}
+        </div>
+        <div>
+            <label for="id_performed_by">Performed By:</label>
+            {{ form.performed_by }}
+        </div>
+
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

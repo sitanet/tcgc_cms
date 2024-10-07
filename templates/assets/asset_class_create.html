@@ -1,0 +1,26 @@
+{% extends 'mis/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h1>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Asset Class</h1>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form.name.label_tag }}
+                        {{ form.name }}
+                    </div>
+                  
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="{% url 'asset_class_list' %}" class="btn btn-secondary ml-2">Back to list</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

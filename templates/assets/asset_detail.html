@@ -1,0 +1,45 @@
+{% extends 'mis/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h1 class="mb-0">{{ asset.name }}</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Category:</strong> {{ asset.category.name }}</p>
+                    <p><strong>Department:</strong> {{ asset.department.name }}</p>
+                    <p><strong>Purchase Date:</strong> {{ asset.purchase_date }}</p>
+                    <p><strong>Cost:</strong> {{ asset.cost }}</p>
+                    <p><strong>Unit:</strong> {{ asset.unit }}</p>
+                    <p><strong>Serial Number:</strong> {{ asset.serial_number }}</p>
+                    <p><strong>Condition:</strong> {{ asset.condition }}</p>
+                    <p><strong>Location:</strong> {{ asset.location.name }}</p>
+                    <p><strong>Assigned to:</strong> {{ asset.assigned_to }}</p>
+                </div>
+                <!-- <div class="col-md-6">
+                    <p><strong>Description:</strong></p>
+                    <p>{{ asset.description }}</p>
+                    <h2>Maintenance Records</h2>
+                    <ul class="list-unstyled">
+                        {% for record in asset.maintenance_records.all %}
+                            <li>{{ record.maintenance_date }} - {{ record.description }} - {{ record.cost }}</li>
+                        {% endfor %}
+                    </ul>
+                </div> -->
+            </div>
+            <div class="mt-3">
+                <a href="{% url 'asset_edit' asset.pk %}" class="btn btn-primary">Edit</a>
+                <form action="{% url 'asset_delete' asset.pk %}" method="post" class="d-inline-block">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <a href="{% url 'asset_list' %}" class="btn btn-secondary">Back to list</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

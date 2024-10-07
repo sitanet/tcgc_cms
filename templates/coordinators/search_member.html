@@ -1,0 +1,11 @@
+{% if members %}
+<ul class="list-group">
+    {% for member in members %}
+    <li class="list-group-item">
+        <input type="radio" name="member" value="{{ member.id }}"> {{ member.first_name }} {{ member.last_name }}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No members found.</p>
+{% endif %}

@@ -1,0 +1,166 @@
+{% extends 'admin_staff/base.html' %}
+
+{% load static %}
+
+{% block content %}
+      
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>Dashboard</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <header>Registration</header>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.errors }}
+
+                <div class="form first">
+                    <div class="details personal">
+                        <div class="image-preview-container">
+                            <div class="preview">
+                                <img id="preview-selected-image" />
+                            </div>
+                            <label for="file-upload">Choose Photo</label>
+                            <input type="file" id="file-upload" name="image" accept="image/*" onchange="previewImage(event);" />
+                            <div id="error-message" class="text-danger"></div>
+                        </div>
+
+                        <div class="fields">
+                            <input type="hidden" value="{{ member.team_sup.username }}" name="user" required>
+                            <div class="input-field">
+                                <label>First Name*</label>
+                                <input type="text" placeholder="Enter First Name" name="first_name" required>
+                            </div>
+                            <div class="input-field">
+                                <label>Middle Name</label>
+                                <input type="text" placeholder="Enter Middle Name" name="middle_name">
+                            </div>
+                            <div class="input-field">
+                                <label>Last Name*</label>
+                                <input type="text" placeholder="Enter Last Name" name="last_name">
+                            </div>
+                            <div class="input-field">
+                                <label>Address*</label>
+                                <input type="textarea" placeholder="Enter Address" name="address">
+                            </div>
+                            <div class="input-field">
+                                <label>Nationality*</label>
+                                <input type="text" placeholder="Enter Nationality" name="nationality">
+                            </div>
+                            <div class="input-field">
+                                <label>Date of Birth*</label>
+                                <input type="date" placeholder="Enter birth date" name="date_of_birth">
+                            </div>
+                            <div class="input-field">
+                                <label>Email*</label>
+                                <input type="Email" placeholder="Enter your Email" name="email">
+                            </div>
+                            <div class="input-field">
+                                <label>Mobile Number*</label>
+                                <input type="number" placeholder="Enter mobile number" name="phone_no">
+                            </div>
+                            <div class="input-field">
+                                <label>Gender*</label>
+                                {{ form.gender }}
+                            </div>
+                            <div class="input-field">
+                                <label>Marital Status*</label>
+                                {{ form.marital_status }}
+                            </div>
+                            <div class="input-field">
+                                <label>Occupation*</label>
+                                <input type="text" placeholder="Enter your occupation" name="occupation">
+                            </div>
+                            <div class="input-field">
+                                <label>Wedding Anniversary</label>
+                                <input type="date" placeholder="Enter Wedding Anniversary date" name="wedding_ann">
+                            </div>
+                            <div class="input-field">
+                                <label>When did you Join TCGC</label>
+                                <input type="date" placeholder="Enter date Join" name="join">
+                            </div>
+                            <div class="input-field">
+                                <label>How did you know about TCGC</label>
+                                <input type="text" placeholder="Enter How did you know about TCGC" name="about">
+                            </div>
+                            <div class="input-field">
+                                <label>Department/Unit</label>
+                                <input type="text" placeholder="Department" name="dept">
+                            </div>
+                            <div class="input-field">
+                                <label>Team Lead</label>
+                                <select id="team_lead" name="" onchange="ddlselect();">
+                                    <option value="">Select a Team Lead</option>
+                                    {% for team_lead in team_lead %}
+                                        <option value="{{ team_lead.id }}">{{ team_lead.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <label>Team Member</label>
+                                <select id="team_member" name="" onchange="ddlselect();">
+                                    <option value="">Select a Team Member</option>
+                                    {% for team_members in team_members %}
+                                        <option value="{{ team_members.team_lead_id }}">{{ team_members.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <label>KCC Center</label>
+                                <select required name="kcc_center">
+                                    <option disabled selected>Select KCC Center</option>
+                                    <option>Ojo Center</option>
+                                    <option>Ajibode Center</option>
+                                    <option>Bodija 1 Center</option>
+                                    <option>Bodija 2 Center</option>
+                                    <option>Apete Center</option>
+                                    <option>Sango Center</option>
+                                    <option>Akobo Center</option>
+                                    <option>Ring Road Center</option>
+                                    <option>Agbowo 1</option>
+                                    <option>Agbowo 2</option>
+                                    <option>Orogun Center</option>
+                                    <option>Bashorun/Iwo road</option>
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <label>Purpose of Visit</label>
+                                <select required name="purpose">
+                                    <option disabled selected>Select Purpose of Visit</option>
+                                    <option>School</option>
+                                    <option>Work</option>
+                                    <option>Special Event</option>
+                                    <option>Relocate to Ibadan</option>
+                                    <option>Conference/Training</option>
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <label>Status*</label>
+                                {{ form.status }}
+                            </div>
+                            <div class="input-field">
+                                <!-- <label>Coordinator</label> -->
+                                <input type="text" id="outputText2" name="team_lead">
+                            </div>
+                            <div class="input-field">
+                                <!-- <label>Team Member</label> -->
+                                <input type="text" id="outputText" name="team_member">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="submit">
+                        <span class="btnText">Submit</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+                </div> 
+            </form>
+        </div>
+    </div>
+{% endblock %}

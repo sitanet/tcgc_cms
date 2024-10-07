@@ -1,0 +1,47 @@
+{% extends 'admin_staff/base.html' %}
+
+{% load static %}
+
+{% block content %}
+      
+            {% include 'admin_staff/includes/alerts.html' %}
+                                    
+            {{ form.errors }}
+               <div class="container-fluid">
+                     <div class="row column_title">
+                         <div class="col-md-12">
+                               <div class="page_title">
+                                       <h2>Dashboard</h2>
+                               </div>
+                         </div>
+                     </div>
+
+    <form>
+        <label for="coordinator">Coordinator:</label>
+        <select id="coordinator" name="coordinator">
+            <option value="">Select a Coordinator</option>
+            {% for coordinator in coordinators %}
+                <option value="{{ coordinator.id }}">{{ coordinator.name }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="team_member">Team Member:</label>
+        <select id="team_member" name="team_member">
+            <option value="">Select a Team Member</option>
+            {% for team_members in team_members %}
+                <option value="{{ team_members.coordinator_id }}">{{ team_members.name }}</option>
+            {% endfor %}
+        </select>
+    </form>
+
+
+</div>
+           
+                           
+</div>
+
+
+
+
+
+{% endblock %}

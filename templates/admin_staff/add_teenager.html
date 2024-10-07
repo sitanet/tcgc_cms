@@ -1,0 +1,22 @@
+{% extends "coordinators/base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg rounded-5">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Add Teenager Profile for {{ member.first_name }} {{ member.middle_name }} {{ member.last_name }}</h4>
+                </div>
+                <div class="card-body p-5">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success mt-3">Add Teenager</button>
+                        <a href="{% url 'member_list' %}" class="btn btn-secondary mt-3">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "coordinators/base.html" %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="card shadow-lg rounded-5">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Teenager Profiles</h4>
+                </div>
+                <div class="card-body p-5">
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Member Name</th>
+                                <th>Current School Name</th>
+                                <th>Current Class</th>
+                                <th>Last Class Position</th>
+                                <th>Favorite Subjects</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for teenager in teenagers %}
+                                <tr>
+                                    <td>{{ teenager.member.first_name }} {{ teenager.member.middle_name }} {{ teenager.member.last_name }}</td>
+                                    <td>{{ teenager.current_school_name }}</td>
+                                    <td>{{ teenager.current_class }}</td>
+                                    <td>{{ teenager.last_class_position }}</td>
+                                    <td>{{ teenager.favorite_subjects }}</td>
+                                    <td>
+                                        <a href="{% url 'edit_teenager' teenager.id %}" class="btn btn-warning btn-sm">Edit</a>
+                                        <form action="{% url 'delete_teenager' teenager.id %}" method="post" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="text-right">
+                        <a href="{% url 'teenager_member_list' %}" class="btn btn-success mt-3">Add Teenager</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

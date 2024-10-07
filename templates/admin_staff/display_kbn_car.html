@@ -1,0 +1,61 @@
+{% extends 'admin_staff/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>Business Members</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- table -->
+        <div class="col-md-12">
+            <div class="white_shd full margin_bottom_30">
+                <div class="table_section padding_infor_info">
+                    <div class="table-responsive-sm">
+                        <div class="input-group mb-1">
+                            <input type="text" class="form-control bg-light" placeholder="Search..." id="searchInput">
+                            <div class="">
+                                <button class="btn" style="background-color: #FF4500;" type="button" onclick="searchTable()">Search</button>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Photo</th>
+                                    <th>Name</th>
+                                    <th>Skill</th>
+                                    <th>Achievements and Awards</th>
+                                    <th>Additional Information</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for member in member %}
+                                <tr>
+                                    <td>
+                                        <img style="width: 40px; height: 50px;" class="img-responsive rounded-circle" src="{{ member.member.image.url }}" 
+                                             onerror="this.src='{% static 'images/avatar.jpg' %}'" alt="#" />
+                                    </td>
+                                    <td>{{ member.member.first_name }}</td>
+                                    <td>{{ member.skills }}</td>
+                                    <td>{{ member.achievements_and_awards }}</td>
+                                    <td>{{ member.additional_information }}</td>
+                                    <td>
+                                        <a href="{% url 'career_detail' career.id %}" style="font-weight: bold; color: blue;">View Details</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

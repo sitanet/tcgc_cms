@@ -1,0 +1,71 @@
+{% extends "admin_staff/base.html" %}
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-warning text-white">
+                    <h3 class="mb-0">Edit Member Details</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{% url 'edit_member' household_member.id %}">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-success">Save Changes</button>
+                            <a href="{% url 'household_list' %}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .container {
+        max-width: 800px;
+    }
+
+    .card {
+        border-radius: 10px;
+        border: none;
+    }
+
+    .card-header {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    h3 {
+        font-family: 'Arial', sans-serif;
+    }
+
+    .form-control {
+        border-radius: 5px;
+    }
+
+    .btn-success {
+        background-color: #28a745; /* Green */
+        border-color: #28a745;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d; /* Gray */
+        border-color: #6c757d;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+    }
+
+    .d-flex {
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}

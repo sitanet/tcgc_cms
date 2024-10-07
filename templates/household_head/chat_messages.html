@@ -1,0 +1,90 @@
+{% extends "household_head/base.html" %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Chat with {{ household.past_username.username }}</h2>
+                </div>
+                <div class="card-body">
+                    <div class="chat-message-body">
+                        {% for query in queries %}
+                        <div class="{% if query.user == request.user %}my-message{% else %}their-message{% endif %} mb-2">
+                            <strong>{{ query.user.username }}</strong>
+                            <p>{{ query.query_text }}</p>
+                            <small class="text-muted">{{ query.created_at|date:"Y-m-d H:i" }}</small><br>
+                            <small class="text-muted">Member: {{ query.member.first_name }} {{ query.member.last_name }}</small>
+                            {% if query.reply_text %}
+                            <div class="reply-message mt-2">
+                                <strong>{{ household.past_username.username }}</strong>
+                                <p>{{ query.reply_text }}</p>
+                                <small class="text-muted">{{ query.updated_at|date:"Y-m-d H:i" }}</small>
+                            </div>
+                            {% else %}
+                            <form method="POST" class="mt-2">
+                                {% csrf_token %}
+                                <input type="hidden" name="query_id" value="{{ query.id }}">
+                                <div class="form-group">
+                                    <textarea name="reply_text" class="form-control" rows="2" required placeholder="Type your reply here..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-sm">Reply</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .container-fluid {
+        padding-top: 30px;
+    }
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: none;
+    }
+
+    .card-header {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        background-color: #007bff; /* Blue header */
+    }
+
+    .chat-message-body {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .my-message {
+        background-color: #d4edda; /* Light green background for my messages */
+        color: #155724; /* Dark green text for contrast */
+        padding: 10px;
+        border-radius: 10px;
+        align-self: flex-end;
+    }
+
+    .their-message {
+        background-color: #f8d7da; /* Light red background for their messages */
+        color: #721c24; /* Dark red text for contrast */
+        padding: 10px;
+        border-radius: 10px;
+        align-self: flex-start;
+    }
+
+    .reply-message {
+        background-color: #fff3cd; /* Light yellow background for replies */
+        color: #856404; /* Dark yellow text for contrast */
+        padding: 10px;
+        border-radius: 10px;
+    }
+</style>
+{% endblock %}

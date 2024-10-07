@@ -1,0 +1,22 @@
+{% extends 'mis/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h1>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Location</h1>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="submit" class="btn btn-primary mr-2">Save</button>
+                        <a href="{% url 'location_list' %}" class="btn btn-secondary ml-2">Back to list</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

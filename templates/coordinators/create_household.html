@@ -1,0 +1,144 @@
+{% extends "coordinators/base.html" %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="card shadow-lg rounded-5">
+                <div class="card-header bg-white text-left">
+                    <h3>Create Household</h3>
+                </div>
+                <div class="card-body p-5">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% if messages %}
+                            <div class="alert alert-info">
+                                <ul class="list-unstyled">
+                                    {% for message in messages %}
+                                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        {{ household_form.errors }}
+                        {{ household_form.non_field_errors }}
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="household_name">Household Name</label>
+                                {{ household_form.household_name }}
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="username">Household Head</label>
+                                {{ household_form.username }}
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="past_username">Pastor In Charge</label>
+                                {{ household_form.past_username }}
+                            </div>
+                        </div>
+
+                        <div id="household_fields">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="member_name_0">Name</label>
+                                    <input type="text" class="form-control bg-light" id="member_name_0" onkeyup="searchMembers(0)">
+                                    <input type="hidden" id="member_id_0" name="members">
+                                    <div id="member_suggestions_0" class="search-results"></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="member_position_0">Position</label>
+                                    <input type="text" class="form-control bg-light" id="member_position_0" name="positions">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-info mt-2" onclick="addHouseholdField()">Add Another Member</button>
+
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-success mt-4 shadow-sm">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .search-results {
+        position: absolute;
+        border: 1px solid #ddd;
+        background-color: #fff;
+        max-height: 200px;
+        overflow-y: auto;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .search-results div {
+        padding: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .search-results div:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+<script type="text/javascript">
+    let memberIndex = 1;
+
+    function searchMembers(index) {
+        const query = document.getElementById(`member_name_${index}`).value;
+        if (query.length < 2) {
+            document.getElementById(`member_suggestions_${index}`).innerHTML = '';
+            return;
+        }
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `{% url "search_members" %}?q=${query}`, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                const resultsContainer = document.getElementById(`member_suggestions_${index}`);
+                const results = JSON.parse(xhr.responseText);
+                resultsContainer.innerHTML = '';
+                results.forEach(result => {
+                    const div = document.createElement('div');
+                    div.textContent = result.name;
+                    div.onclick = () => selectMember(index, result.id, result.name);
+                    resultsContainer.appendChild(div);
+                });
+            }
+        };
+        xhr.send();
+    }
+
+    function selectMember(index, memberId, memberName) {
+        document.getElementById(`member_name_${index}`).value = memberName;
+        document.getElementById(`member_id_${index}`).value = memberId;
+        document.getElementById(`member_suggestions_${index}`).innerHTML = '';
+    }
+
+    function addHouseholdField() {
+        const householdFields = document.getElementById('household_fields');
+
+        const row = document.createElement('div');
+        row.className = 'form-row';
+
+        const nameField = document.createElement('div');
+        nameField.className = 'form-group col-md-6';
+        nameField.innerHTML = `<label for="member_name_${memberIndex}">Name</label><input type="text" class="form-control bg-light" id="member_name_${memberIndex}" onkeyup="searchMembers(${memberIndex})"><input type="hidden" id="member_id_${memberIndex}" name="members"><div id="member_suggestions_${memberIndex}" class="search-results"></div>`;
+
+        const positionField = document.createElement('div');
+        positionField.className = 'form-group col-md-6';
+        positionField.innerHTML = `<label for="member_position_${memberIndex}">Position</label><input type="text" class="form-control bg-light" id="member_position_${memberIndex}" name="positions">`;
+
+        row.appendChild(nameField);
+        row.appendChild(positionField);
+        householdFields.appendChild(row);
+
+        memberIndex++;
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,213 @@
+{% extends 'mis/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="midde_cont">
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>Assets Management</h2>
+                </div>
+            </div>
+        </div>
+
+        {% include 'coordinators/includes/alerts.html' %}
+        <div class="row column1">
+            <div class="col-md-6 col-lg-3">
+                <a href="{% url 'asset_create' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-laptop" style="font-size: 2em; color: #FF5733;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Register Assets: </span><br><span style="color: #FF5F1F;"><b></b> </span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <a href="{% url 'department_create' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-building" style="font-size: 2em; color: #FF5733;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Register Department:</span> <br> <span style="color: #FF5F1F;"><b>{{ member_male }}</b></span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <a href="{% url 'category_create' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-tag" style="font-size: 2em; color: #33FF57;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Register Category:</span> <br><span style="color: #FF5F1F;"><b>{{ member_female }}</b></span> </p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <a href="{% url 'location_create' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-map-marker-alt" style="font-size: 2em; color: #5733FF;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Register Location:</span> <br> <span style="color: #FF5F1F;"><b>{{ member_family }}</b></span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <a href="{% url 'asset_class_create' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-map-marker-alt" style="font-size: 2em; color: #5733FF;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Register Asset Class:</span> <br> <span style="color: #FF5F1F;"><b>{{ member_family }}</b></span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <a href="{% url 'asset_list' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-box" style="font-size: 2em; color: #FF33A8;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Display All Assets:</span> <br> <span style="color: #FF5F1F;"><b>{{ member_married }}</b></span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+
+            <div class="col-md-6 col-lg-3">
+                <a href="{% url 'department_list' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-building" style="font-size: 2em; color: #33FFF5;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Display All Department:</span> <br><span style="color: #FF5F1F;"><b>{{ member_single }}</b></span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+
+            <div class="col-md-6 col-lg-3">
+                <a href="{% url 'category_list' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-tags" style="font-size: 2em; color: #33FFBD;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Display All Categories:</span> <br><span style="color: #FF5F1F;"><b>{{ member_children }}</b></span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+
+            <div class="col-md-6 col-lg-3">
+                <a href="{% url 'location_list' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-map-marker-alt" style="font-size: 2em; color: #FF33F6;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Display All Location:</span> <br><span style="color: #FF5F1F;"><b>{{ member_teenager }}</b></span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="col-md-6 col-lg-3">
+                <a href="{% url 'asset_class_list' %}">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div>
+                                <i class="fas fa-map-marker-alt" style="font-size: 2em; color: #FF33F6;"></i>
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><span style="color: green;">Display All Asset Class:</span> <br><span style="color: #FF5F1F;"><b>{{ member_teenager }}</b></span></p>
+                                <p class="head_couter pb-2 pt-5"></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+
+       
+
+        
+            
+        </div>
+    </div>
+</div>
+
+<!-- Add Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+{% endblock %}

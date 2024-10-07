@@ -1,0 +1,24 @@
+{% extends 'mis/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h1>Locations</h1>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for location in locations %}
+                        <li class="list-group-item">
+                            <a href="{% url 'location_detail' location.pk %}" class="font-weight-bold text-success">{{ location.name }}</a>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No locations found.</li>
+                    {% endfor %}
+                </ul>
+                <a href="{% url 'location_create' %}" class="btn btn-primary mt-3">Add new location</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

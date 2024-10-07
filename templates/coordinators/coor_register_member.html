@@ -1,0 +1,211 @@
+{% extends 'coordinators/base.html' %}
+
+{% load static %}
+
+{% block content %}
+      
+    {% include 'coordinators/includes/alerts.html' %}
+                                
+    {{ form.errors }}
+    <div class="container-fluid">
+        <div class="row column_title">
+            <div class="col-md-12">
+                <div class="page_title">
+                    <h2>Registration</h2>
+                </div>
+                <div class="text-right">
+                    <a href="{% url 'registration' %}" class="btn btn-secondary">Back</a>
+                </div>
+            </div>
+        </div>
+   
+        <div class="container">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form first">
+                    <div class="details personal">
+                        <div class="image-preview-container">
+                            <div class="preview">
+                                <img id="preview-selected-image" />
+                            </div>
+                            <label for="file-upload">Choose Photo</label>
+                            <input type="file" id="file-upload" name="image" accept="image/*" onchange="previewImage(event);" />
+                            <div id="error-message" class="text-danger"></div>
+                        </div>
+  
+                        <div class="fields">
+                            <input type="hidden" value="{{ member.team_sup.username }}" name="user" required>
+
+                            <div class="input-field">
+                                <label>First Name*</label>
+                                <input type="text" placeholder="Enter First Name" name="first_name" value="{{ form.first_name.value|default_if_none:'' }}" required>
+                            </div>
+                            <div class="input-field">
+                                <label>Middle Name</label>
+                                <input type="text" placeholder="Enter Middle Name" name="middle_name" value="{{ form.middle_name.value|default_if_none:'' }}">
+                            </div>
+                            <div class="input-field">
+                                <label>Last Name*</label>
+                                <input type="text" placeholder="Enter Last Name" name="last_name" value="{{ form.last_name.value|default_if_none:'' }}" required>
+                            </div>
+                            <div class="input-field">
+                                <label>Address*</label>
+                                <input type="textarea" placeholder="Enter Address" name="address" value="{{ form.address.value|default_if_none:'' }}" required>
+                            </div>
+                            <div class="input-field">
+                                <label>Nationality*</label>
+                                <input type="text" placeholder="Enter Nationality" name="nationality" value="{{ form.nationality.value|default_if_none:'' }}" required>
+                            </div>
+                            <div class="input-field">
+                                <label>Date of Birth*</label>
+                                <input type="date" placeholder="Enter birth date" name="date_of_birth" value="{{ form.date_of_birth.value|default_if_none:'' }}" required>
+                            </div>
+                            <div class="input-field">
+                                <label>Email*</label>
+                                <input type="email" placeholder="Enter your Email" name="email" value="{{ form.email.value|default_if_none:'' }}" required>
+                            </div>
+                            <div class="input-field">
+                                <label>Mobile Number*</label>
+                                <input type="text" placeholder="Enter mobile number" name="phone_no" value="{{ form.phone_no.value|default_if_none:'' }}" required>
+                            </div>
+                            <div class="input-field">
+                                <label>Gender*</label>
+                               {{ form.gender }}
+                            </div>
+                            <div class="input-field">
+                                <label>Marital Status*</label>
+                               {{ form.marital_status }}
+                            </div>
+                            <div class="input-field">
+                                <label>Occupation*</label>
+                                <input type="text" placeholder="Enter your occupation" name="occupation" value="{{ form.occupation.value|default_if_none:'' }}" >
+                            </div>
+                            <div class="input-field">
+                                <label>Place of Work*</label>
+                                <input type="text" placeholder="Enter your place of work" name="place_of_work" value="{{ form.place_of_work.value|default_if_none:'' }}" >
+                            </div>
+                            <div class="input-field">
+                                <label>Position*</label>
+                                <input type="text" placeholder="Enter your position" name="position" value="{{ form.position.value|default_if_none:'' }}" >
+                            </div>
+                            <div class="input-field">
+                                <label>Wedding Anniversary</label>
+                                <input type="date" placeholder="Enter Wedding Anniversary date" name="wedding_ann" value="{{ form.wedding_ann.value|default_if_none:'' }}">
+                            </div>
+                            <div class="input-field">
+                                <label>When did you Join TCGC</label>
+                                <input type="date" placeholder="Enter date Join" name="join" value="{{ form.join.value|default_if_none:'' }}">
+                            </div>
+                            <div class="input-field">
+                                <label>How did you know about TCGC</label>
+                                <input type="text" placeholder="Enter How did you know about TCGC" name="about" value="{{ form.about.value|default_if_none:'' }}">
+                            </div>
+                            <div class="input-field">
+                                <label>Department/Unit</label>
+                                <input type="text" placeholder="Department" name="dept" value="{{ form.dept.value|default_if_none:'' }}">
+                            </div>
+                         
+                            <div class="input-field">
+                                <label>Team Lead</label>
+                                <select id="team_lead" name="team_lead" onchange="ddlselect();">
+                                    <option value="">Select a Team Lead</option>
+                                    {% for team_lead in team_lead %}
+                                        <option value="{{ team_lead.id }}">{{ team_lead.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                          
+                           
+
+                            <div class="input-field">
+                                <label>Team Member</label>
+                                <select id="team_member" name="team_member" ">
+                                    <option value="">Select a Team Member</option>
+                                    {% for team_members in team_members %}
+                                        <option value="{{ team_members.team_lead_id }}">{{ team_members.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <label>KCC Center</label>
+                                <select required name="kcc_center">
+                                    <option disabled selected>Select KCC Center</option>
+                                    <option {% if form.kcc_center.value == "Ojo Center" %}selected{% endif %}>Ojo Center</option>
+                                    <option {% if form.kcc_center.value == "Ajibode Center" %}selected{% endif %}>Ajibode Center</option>
+                                    <option {% if form.kcc_center.value == "Bodija 1 Center" %}selected{% endif %}>Bodija 1 Center</option>
+                                    <option {% if form.kcc_center.value == "Bodija 2 Center" %}selected{% endif %}>Bodija 2 Center</option>
+                                    <option {% if form.kcc_center.value == "Apete Center" %}selected{% endif %}>Apete Center</option>
+                                    <option {% if form.kcc_center.value == "Sango Center" %}selected{% endif %}>Sango Center</option>
+                                    <option {% if form.kcc_center.value == "Akobo Center" %}selected{% endif %}>Akobo Center</option>
+                                    <option {% if form.kcc_center.value == "Ring Road Center" %}selected{% endif %}>Ring Road Center</option>
+                                    <option {% if form.kcc_center.value == "Agbowo 1" %}selected{% endif %}>Agbowo 1</option>
+                                    <option {% if form.kcc_center.value == "Agbowo 2" %}selected{% endif %}>Agbowo 2</option>
+                                    <option {% if form.kcc_center.value == "Orogun Center" %}selected{% endif %}>Orogun Center</option>
+                                    <option {% if form.kcc_center.value == "Bashorun/Iwo road" %}selected{% endif %}>Bashorun/Iwo road</option>
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <label>Purpose of Visit</label>
+                                <select required name="purpose">
+                                    <option disabled selected>Select Purpose of Visit</option>
+                                    <option {% if form.purpose.value == "School" %}selected{% endif %}>School</option>
+                                    <option {% if form.purpose.value == "Work" %}selected{% endif %}>Work</option>
+                                    <option {% if form.purpose.value == "Special Event" %}selected{% endif %}>Special Event</option>
+                                    <option {% if form.purpose.value == "Relocate to Ibadan" %}selected{% endif %}>Relocate to Ibadan</option>
+                                    <option {% if form.purpose.value == "Conference/Training" %}selected{% endif %}>Conference/Training</option>
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <label>Status*</label>
+                                {{ form.status }}
+                            </div>
+
+                          <header>Next of Kin Details</header>
+                          <div class="input-field">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="Full Name" name="kin_fullname" value="{{ form.kin_fullname.value|default_if_none:'' }}">
+                          </div>
+                          <div class="input-field">
+                            <label>Date of Birth</label>
+                            <input type="date" name="kin_birth" value="{{ form.kin_birth.value|default_if_none:'' }}">
+                          </div>
+                          <div class="input-field">
+                            <label>Gender</label>
+                            <select required name="kin_gender">
+                                <option disabled selected>Select Gender</option>
+                                <option {% if form.kin_gender.value == "Male" %}selected{% endif %}>Male</option>
+                                <option {% if form.kin_gender.value == "Female" %}selected{% endif %}>Female</option>
+                            </select>
+                          </div>
+                          <div class="input-field">
+                            <label>Relationship to You</label>
+                            <input type="text" placeholder="Enter your relationship" name="kin_relationship" value="{{ form.kin_relationship.value|default_if_none:'' }}">
+                          </div>
+                          <div class="input-field">
+                            <label>Address</label>
+                            <input type="textarea" name="kin_address" value="{{ form.kin_address.value|default_if_none:'' }}">
+                          </div>
+                          <div class="input-field">
+                            <label>Phone No</label>
+                            <input type="text" placeholder="Enter Next of Kin Phone No" name="kin_phone_no" value="{{ form.kin_phone_no.value|default_if_none:'' }}">
+                          </div>
+                          <div class="input-field">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="Enter Email Address" name="kin_email" value="{{ form.kin_email.value|default_if_none:'' }}">
+                          </div>
+                          <div class="input-field">
+                            <label>Emergency Phone No</label>
+                            <input type="text" placeholder="Enter Emergency Phone No" name="kin_emergency" value="{{ form.kin_emergency.value|default_if_none:'' }}">
+                          </div>
+                        </div>
+                    </div>
+
+                    <button class="submit">
+                        <span class="btnText">Submit</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+                </div> 
+            </form>
+        </div>
+    </div>
+{% endblock %}

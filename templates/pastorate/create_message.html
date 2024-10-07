@@ -1,0 +1,60 @@
+{% extends "pastorate/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Send Message</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="form-group mb-4">
+                    <label for="recipient_role" class="form-label">Recipient Role</label>
+                    {{ form.recipient_role }}  <!-- Render the field directly -->
+                    {% for error in form.recipient_role.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="subject" class="form-label">Subject</label>
+                    {{ form.subject }}  <!-- Render the field directly -->
+                    {% for error in form.subject.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="body" class="form-label">Message</label>
+                    {{ form.body }}  <!-- Render the field directly -->
+                    {% for error in form.body.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="btn btn-success">Send Message</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'tinymce/tinymce.min.js' %}"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea#id_body',  // Updated to use Django's generated ID
+        height: 300,
+        menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+        ],
+        toolbar: 'undo redo | formatselect | bold italic backcolor | \
+                  alignleft aligncenter alignright alignjustify | \
+                  bullist numlist outdent indent | removeformat | help',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+    });
+</script>
+{% endblock %}

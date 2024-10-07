@@ -1,0 +1,98 @@
+{% extends 'admin_staff/base.html' %}
+
+{% load static %}
+
+{% block content %}
+            
+                    
+                       
+
+                
+                       
+                        {% include 'admin_staff/includes/alerts.html' %}
+                        
+                            {{ form.errors }}
+                        
+                        <!-- dashboard inner -->
+            
+                        <div class="midde_cont">
+                            <div class="container-fluid">
+                               <div class="row column_title">
+                                  <div class="col-md-12">
+                                     <div class="page_title">
+                                        <h2>Display Members</h2>
+                                     </div>
+                                  </div>
+                               </div>
+             
+             
+             
+                               <!-- table -->
+                               <div class="col-md-12">
+                                  <div class="white_shd full margin_bottom_30">
+             
+                                     <div class="table_section padding_infor_info">
+                                        <div class="table-responsive-sm">
+                                           <div class="input-group mb-1">
+                                              <input type="text" class="form-control bg-light" placeholder="Search..."
+                                                 id="searchInput">
+                                              <div class="">
+                                                 <button class="btn" style="background-color: #FF4500;" type="button" onclick="searchTable()">Search</button>
+                                              </div>
+                                           </div>
+                                           <table class="table">
+                                              <thead class="thead-dark">
+                                                 <tr>
+                                                   <th>Photo</th>
+                                                    <th>Firstname</th>
+                                                    <th>Lastname</th>
+                                                
+                                                    <th>Phone Number</th>
+                                                    <th>Address</th>
+                                              
+                                                    <th>Coordinator</th>
+                                                    <th>Team Member</th>
+                                                    <th>Action</th>
+                                                    
+                                                 </tr>
+                                              </thead>
+                                              <tbody>
+                                                {% for member in member_inactive %}
+                                                   <tr>
+                                                      <td><img style="width: 40px; height: 50px;" class="img-responsive rounded-circle" src="{{ member.image.url }}" 
+                                                         onerror="this.src='{% static 'images/avatar.jpg' %}'"  alt="#" /></td>
+                                                      <td>{{ member.first_name }}</td>
+                                                      <td>{{ member.last_name }}</td>
+                                                      <td>{{ member.phone_no }}</td>
+                                                      <td>{{ member.address }}</td>
+                                                      
+                                                      <td>{{ member.team_lead }}</td>
+                                                      <td>{{ member.team_member }}</td>
+                                                      <td ><a href="{% url 'member_detail' member.id %}" style="font-weight: bold; color: blue;">Edit</a>/<a href="{% url 'delete_member' member.id %}" onclick="return confirm('Are you sure you want to delete ?')" style="font-weight: bold; color: red;">Delete</a>/<a href="{% url 'new_comment' member.id %}" style="font-weight: bold; color: green;">Comment</a></td>
+                                                   </tr>
+                                                   {% endfor %}
+                                            
+             
+                                              </tbody>
+                                           </table>
+                                        </div>
+                                     </div>
+                                  </div>
+                               </div>
+                            </div>
+                         </div>
+
+             
+                               <!-- footer -->
+                             
+                            </div>
+                            <!-- end dashboard inner -->
+                         </div>
+                    
+
+
+                    
+     
+
+
+{% endblock %}

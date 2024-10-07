@@ -1,0 +1,63 @@
+{% extends 'admin_staff/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-3 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">{{ member.first_name }} {{ member.last_name }}</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{ member.image.url }}" class="img-fluid rounded mb-3 shadow" alt="Profile Picture" onerror="this.src='{% static 'images/avatar.jpg' %}'">
+                        </div>
+                        <div class="col-md-8">
+                            <h4>Personal Information</h4>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Gender:</strong> {{ member.get_gender_display }}</li>
+                                <li class="list-group-item"><strong>Marital Status:</strong> {{ member.get_marital_status_display }}</li>
+                                <li class="list-group-item"><strong>Date of Birth:</strong> {{ member.date_of_birth }}</li>
+                                <li class="list-group-item"><strong>Email:</strong> {{ member.email }}</li>
+                                <li class="list-group-item"><strong>Phone No:</strong> {{ member.phone_no }}</li>
+                                <li class="list-group-item"><strong>Occupation:</strong> {{ member.occupation }}</li>
+                                <li class="list-group-item"><strong>Address:</strong> {{ member.address }}</li>
+                                <li class="list-group-item"><strong>Nationality:</strong> {{ member.nationality }}</li>
+                                <li class="list-group-item"><strong>Status:</strong> {{ member.get_status_display }}</li>
+                                <li class="list-group-item"><strong>About:</strong> {{ member.about }}</li>
+                                <li class="list-group-item"><strong>Department:</strong> {{ member.dept }}</li>
+                                <li class="list-group-item"><strong>Team Lead:</strong> {{ member.team_lead }}</li>
+                                <li class="list-group-item"><strong>Team Member:</strong> {{ member.team_member }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <h4>Kin Details</h4>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Kin Full Name:</strong> {{ member.kin_fullname }}</li>
+                                <li class="list-group-item"><strong>Kin Birth Date:</strong> {{ member.kin_birth }}</li>
+                                <li class="list-group-item"><strong>Kin Gender:</strong> {{ member.kin_gender }}</li>
+                                <li class="list-group-item"><strong>Kin Relationship:</strong> {{ member.kin_relationship }}</li>
+                                <li class="list-group-item"><strong>Kin Address:</strong> {{ member.kin_address }}</li>
+                                <li class="list-group-item"><strong>Kin Phone No:</strong> {{ member.kin_phone_no }}</li>
+                                <li class="list-group-item"><strong>Kin Email:</strong> {{ member.kin_email }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <h4>Emergency Contact</h4>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Emergency Phone No:</strong> {{ member.emergency_phone_no }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,222 @@
+{% extends "career/base.html" %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page_title text-center">
+                <h2>Video List</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search form -->
+    <div class="row mb-4 justify-content-center">
+        <div class="col-md-8">
+            <form method="GET" action="">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search by title" value="{{ request.GET.q }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        {% for video in page_obj %}
+            <div class="col-md-6">
+                <div class="card shadow-lg rounded-5 mb-4">
+                    <div class="card-body position-relative">
+                        <h5 class="card-title text-center">{{ video.title }}</h5>
+                        <div class="video-container mt-3">
+                            <div id="player{{ forloop.counter }}" class="youtube-player" data-id="{{ video.link|youtube_id }}"></div>
+                        </div>
+                        <div class="video-controls text-center mt-3">
+                            <button class="btn btn-outline-secondary play-btn" data-id="{{ forloop.counter }}">
+                                <i class="fa fa-play"></i> Play
+                            </button>
+                            <button class="btn btn-outline-secondary pause-btn" data-id="{{ forloop.counter }}">
+                                <i class="fa fa-pause"></i> Pause
+                            </button>
+                            <button class="btn btn-outline-secondary forward-btn" data-id="{{ forloop.counter }}">
+                                <i class="fa fa-forward"></i> Forward 10s
+                            </button>
+                            <button class="btn btn-outline-secondary backward-btn" data-id="{{ forloop.counter }}">
+                                <i class="fa fa-backward"></i> Backward 10s
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:2 and not forloop.last %}
+                </div><div class="row justify-content-center">
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <!-- Pagination controls -->
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" aria-label="First">
+                                <span aria-hidden="true">&laquo;&laquo;</span>
+                                <span class="sr-only">First</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">&laquo;&laquo;</span>
+                        </li>
+                        <li class="page-item disabled">
+                            <span class="page-link">&laquo;</span>
+                        </li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                        {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+                            <li class="page-item"><a class="page-link" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" aria-label="Last">
+                                <span aria-hidden="true">&raquo;&raquo;</span>
+                                <span class="sr-only">Last</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">&raquo;</span>
+                        </li>
+                        <li class="page-item disabled">
+                            <span class="page-link">&raquo;&raquo;</span>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<style>
+    .video-container {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        height: 0;
+        overflow: hidden;
+        max-width: 100%;
+        background: #000;
+        border-radius: 5px;
+    }
+
+    .youtube-player {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .video-controls {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .card {
+        transition: transform 0.2s;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .page_title {
+        margin-bottom: 20px;
+    }
+
+    .btn-outline-secondary {
+        margin: 5px;
+    }
+
+    .btn-outline-secondary i {
+        margin-right: 5px;
+    }
+</style>
+
+<!-- Include the YouTube iframe API -->
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+    var players = {};
+
+    function onYouTubeIframeAPIReady() {
+        document.querySelectorAll('.youtube-player').forEach(function (element) {
+            var playerId = element.id;
+            var videoId = element.getAttribute('data-id');
+
+            players[playerId] = new YT.Player(playerId, {
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'controls': 0,
+                    'showinfo': 0,
+                    'rel': 0
+                }
+            });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.play-btn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var id = button.getAttribute('data-id');
+                players['player' + id].playVideo();
+            });
+        });
+
+        document.querySelectorAll('.pause-btn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var id = button.getAttribute('data-id');
+                players['player' + id].pauseVideo();
+            });
+        });
+
+        document.querySelectorAll('.forward-btn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var id = button.getAttribute('data-id');
+                var currentTime = players['player' + id].getCurrentTime();
+                players['player' + id].seekTo(currentTime + 10, true);
+            });
+        });
+
+        document.querySelectorAll('.backward-btn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var id = button.getAttribute('data-id');
+                var currentTime = players['player' + id].getCurrentTime();
+                players['player' + id].seekTo(currentTime - 10, true);
+            });
+        });
+    });
+</script>
+{% endblock %}

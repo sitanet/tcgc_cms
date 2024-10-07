@@ -1,0 +1,113 @@
+{% extends 'coordinators/base.html' %}
+
+{% load static %}
+
+{% block content %}
+      
+            {% include 'coordinators/includes/alerts.html' %}
+                                    
+            {{ form.errors }}
+               <div class="container-fluid">
+                     <div class="row column_title">
+                         <div class="col-md-12">
+                               <div class="page_title">
+                                       <h2>Dashboard</h2>
+                               </div>
+                         </div>
+                     </div>
+           
+                        <form method="POST" enctype="multipart/form-data" class="mx-5 py-5 bg-white rounded rounded-5 shadow">
+                        {% csrf_token %}
+                        <div class="form">
+                              <h4 class="text-center">Enter New Comment</h4>
+                              <div class="form-group m-auto col-md-6 pt-4">
+
+                                    <label for="fName">First Name <span
+                                                class="text-danger">*</span></label>
+                                    <input type="text" class="form-control bg-light"  name="first_name" value="{{member.first_name}}"
+                                          placeholder="First Name" required readonly>
+                              </div>
+                              <br>
+                              <div class="form-group m-auto col-md-6">
+                                    <label for="lname">Last Name <span
+                                                class="text-danger">*</span></label>
+                                                <input type="text" class="form-control bg-light" name="last_name"  value="{{member.last_name}}"
+                                                placeholder="Last Name" required readonly>
+                              </div>
+
+                              <div class="form-group m-auto col-md-6">
+                                    <!-- <label for="lname">Phone No <span
+                                                class="text-danger">*</span></label> -->
+                                                <input type="text" class="form-control bg-light" name="phone_no"  value="{{member.phone_no}}"
+                                                 required readonly hidden>
+                              </div>
+
+                              <div class="form-group m-auto col-md-6">
+                                    <!-- <label for="lname">Coordinator <span
+                                                class="text-danger">*</span></label> -->
+                                                <input type="text" class="form-control bg-light" name="coor_comm"  value="{{member.team_lead}}"
+                                                 required readonly hidden>
+                              </div>
+
+                              <div class="form-group m-auto col-md-6">
+                                    <!-- <label for="lname">Team Member <span
+                                                class="text-danger">*</span></label> -->
+                                                <input type="text" class="form-control bg-light" name="team_mem"  value="{{member.team_member}}"
+                                                 required readonly hidden>
+                              </div>
+                              <!-- <div class="form-group m-auto col-md-6">
+                                    <label for="lname">Post By <span
+                                                class="text-danger">*</span></label>
+                                                <input type="text" class="form-control bg-light" name="team_sup"  value="{{user.first_name}}"
+                                                 required readonly> -->
+                              </div>
+
+
+                              <br>
+                              <div class="form-group col-md-6 m-auto">
+                                    <label for="comment">Comment <span
+                                                class="text-danger">*</span></label>
+                                    <textarea class="form-control bg-light" id="comment" rows="10" name="comment"
+                                          placeholder="Your Comment Here" required></textarea>
+                              </div>
+
+                              <div class=" col-md-6 m-auto text-center">
+                                    <button type="submit"
+                                          class="btn  w-100  mt-4 shadow-sm"  style="background-color: #FF4500;">Comment</button>
+                              </div>
+                        </div>
+                        
+
+                        
+
+
+
+                  </form>
+                      
+                                <div class="form second">
+                                    <div class="details address">
+                                       
+                      
+                              
+                                    </div>
+                      
+                                    <div class="details family">
+                                       
+                      
+                      
+                       
+                                          
+                      
+                       
+                                </div>
+                            </form>
+                     </div>
+           
+                           
+                  </div>
+            
+         
+            
+                 
+            
+                  {% endblock %}

@@ -1,0 +1,111 @@
+{% extends "pastorate/base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    .message-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-radius: 10px;
+    }
+    .original-message, .reply-message {
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .original-message {
+        background-color: #f8d7da; /* Light red background for the original message */
+        color: #721c24; /* Dark red text for contrast */
+        align-self: flex-start;
+        max-width: 75%;
+    }
+    .reply-message {
+        background-color: #d4edda; /* Light green background for replies */
+        color: #155724; /* Dark green text for contrast */
+        align-self: flex-end;
+        max-width: 75%;
+    }
+    .message-details {
+        font-size: 0.9rem;
+        color: #6c757d; /* Muted text color for details */
+        margin-top: 10px;
+    }
+    .card-header {
+        padding: 20px;
+        border-bottom: none;
+    }
+    .card-body {
+        padding: 30px;
+    }
+    .reply-form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+</style>
+<div class="container-fluid mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Message Detail</h2>
+        </div>
+        <div class="card-body">
+            <div class="message-container">
+                <!-- Original Message -->
+                <div class="original-message">
+                    <h3>{{ message.subject }}</h3>
+                    <p>{{ message.query_text|safe }}</p>
+                    <div class="message-details">
+                        <small>From: {{ message.sender.first_name }} {{ message.sender.last_name }}</small><br>
+                        <small>Date: {{ message.created_at|date:"Y-m-d H:i" }}</small>
+                    </div>
+                </div>
+                
+            
+
+                <!-- Replies -->
+                {% for reply in replies %}
+                <div class="reply-message">
+                    <strong>{{ reply.subject }}</strong>
+                    <p>{{ reply.body|safe }}</p>
+                    <div class="message-details">
+                        <small>From: {{ reply.sender.first_name }} {{ reply.sender.last_name }}</small><br>
+                        <small>Date: {{ reply.created_at|date:"Y-m-d H:i" }}</small>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <hr>
+            <h4>Reply</h4>
+            <div class="reply-form">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <!-- <div class="form-group col-md-6">
+                            {{ form.recipient_role.label_tag }}
+                            {{ form.recipient_role }}
+                        </div> -->
+                        <div class="form-group col-md-6">
+                            {{ form.subject.label_tag }}
+                            <input type="text" name="subject" class="form-control" value="RE: {{ message.subject }}" required />
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="form-group">
+                        {{ form.body.label_tag }}
+                        {{ form.body }}
+                    </div>
+                    <button type="submit" class="btn btn-success">Send Reply</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

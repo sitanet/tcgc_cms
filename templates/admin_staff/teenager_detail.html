@@ -1,0 +1,33 @@
+{% extends "coordinators/base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h3>{{ teenager.member.first_name }} {{ teenager.member.middle_name }} {{ teenager.member.last_name }}</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    {% if teenager.member.image %}
+                        <img src="{{ teenager.member.image.url }}" class="img-fluid mb-3" alt="{{ teenager.member.first_name }}'s Image">
+                    {% else %}
+                        <p>No image available</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <!-- <p><strong>Full Name:</strong> {{ teenager.member.first_name }} {{ teenager.member.middle_name }} {{ teenager.member.last_name }}</p> -->
+                    <p><strong>Current School Name:</strong> {{ teenager.current_school_name }}</p>
+                    <p><strong>Current Class:</strong> {{ teenager.current_class }}</p>
+                    <p><strong>Last Class Position:</strong> {{ teenager.last_class_position }}</p>
+                    <p><strong>Favorite Subjects:</strong> {{ teenager.favorite_subjects }}</p>
+                    <p><strong>Career Goals:</strong> {{ teenager.career_goals }}</p>
+                    <p><strong>College/University Plans:</strong> {{ teenager.college_university_plans }}</p>
+                    <p><strong>Other Future Aspirations:</strong> {{ teenager.other_future_aspirations }}</p>
+                    <a href="{% url 'edit_teenager' teenager.id %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'delete_teenager' teenager.id %}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
