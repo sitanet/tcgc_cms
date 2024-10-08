@@ -430,7 +430,7 @@ class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_combined_messages')
 
     # Field to specify the role of the recipient
-    recipient_role = models.CharField(max_length=10)
+    recipient_role = models.PositiveSmallIntegerField(choices=User.ROLE_CHOICE)
 
     # Subject of the message
     subject = models.CharField(max_length=255)
