@@ -82,7 +82,7 @@ class User(AbstractBaseUser):
     )
 
     profile_picture = models.ImageField(upload_to='users/profile_pictures', default='images/avatar.jpg')
-    first_name = models.CharField(max_length=60)
+    first_name = models.CharField(max_length=80)
     last_name = models.CharField(max_length=80)
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=110, unique=True)
