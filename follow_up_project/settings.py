@@ -184,6 +184,7 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+STATIC_URL = '/static/'
 
 
 
@@ -192,15 +193,16 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'follow_up_project/static')]
 
 
 
+# AWS_STORAGE_BUCKET_NAME = 'tcgc-cms-bucket'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 
 
-
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",  # For media files
-    },
-    "staticfiles": {
-        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",  # For static files
-    },
-}
+# STORAGES = {
+#     "default": {
+#         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",  # For media files
+#     },
+#     "staticfiles": {
+#         "BACKEND": "storages.backends.s3boto3.S3StaticStorage",  # For static files
+#     },
+# }
 
