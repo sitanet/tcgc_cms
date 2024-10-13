@@ -116,29 +116,29 @@ AUTH_USER_MODEL = 'accounts.User'  # Replace 'accounts.User' with the correct ap
 
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'tcgc_db',
-#         'USER': 'postgres',
-#         'PASSWORD': 'People',
-#         'HOST': 'localhost',
-      
-#         'PORT': '5432',          
-#     }
-# }
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': env('DATABASE_HOST'),
-        'PORT': env('DATABASE_PORT'),  # Use the variable or hardcode '5432'
+        'NAME': 'tcgc_db',
+        'USER': 'postgres',
+        'PASSWORD': 'People',
+        'HOST': 'localhost',
+      
+        'PORT': '5432',          
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': env('DATABASE_NAME'),
+#         'USER': env('DATABASE_USER'),
+#         'PASSWORD': env('DATABASE_PASSWORD'),
+#         'HOST': env('DATABASE_HOST'),
+#         'PORT': env('DATABASE_PORT'),  # Use the variable or hardcode '5432'
+#     }
+# }
 
 
 
