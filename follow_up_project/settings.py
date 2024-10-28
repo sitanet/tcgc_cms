@@ -107,16 +107,30 @@ AUTH_USER_MODEL = 'accounts.User'  # Replace 'accounts.User' with the correct ap
 
 # local host
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('DATABASE_NAME'),
+#         'USER': os.getenv('DATABASE_USER'),
+#         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+#         'HOST': os.getenv('DATABASE_HOST'),
+#         'PORT': os.getenv('DATABASE_PORT'),
+#     }
+# }
+
+# AWS
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DATABASE_NAME'),
-        'USER': os.getenv('DATABASE_USER'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-        'HOST': os.getenv('DATABASE_HOST'),
-        'PORT': os.getenv('DATABASE_PORT'),
+        'NAME': os.getenv('AWS_DATABASE_NAME'),
+        'USER': os.getenv('AWS_DATABASE_USER'),
+        'PASSWORD': os.getenv('AWS_DATABASE_PASSWORD'),
+        'HOST': os.getenv('AWS_DATABASE_HOST'),
+        'PORT': os.getenv('AWS_DATABASE_PORT'),
     }
 }
+
 
 
 
