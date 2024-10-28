@@ -204,22 +204,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
 STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3.S3Storage",
+    "default": {  # For media files
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         "OPTIONS": {
             "bucket_name": "tcgc-cms-bucket",
-            "location": "media", 
+            "location": "media",
         },
     },
-    "staticfiles": {
-        "BACKEND": "storages.backends.s3.S3Storage",
+    "staticfiles": {  # For static files
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         "OPTIONS": {
             "bucket_name": "tcgc-cms-bucket",
-            "location": "static", 
+            "location": "static",
         },
     },
 }
+
 
 
 
@@ -237,7 +239,5 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 
-STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'  # Use a distinct path
-
-# Media files (User-uploaded files)
-MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/'  # Make sure it's different from STATIC_URL
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
