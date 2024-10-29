@@ -178,12 +178,12 @@ USE_TZ = True
 
 
 # STATIC_ROOT = '/home2/thecity2/public_html/followtheminchrist/static/'
-# STATIC_ROOT = BASE_DIR /'static'
-# STATICFILES_DIRS = [
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
+STATICFILES_DIRS = [
     
-#     'follow_up_project/static',
-#     # os.path.join(BASE_DIR, 'your_app/static'),
-# ]
+    'follow_up_project/static',
+    # os.path.join(BASE_DIR, 'your_app/static'),
+]
 
 MEDIA_URL = '/media/'
 # MEDIA_ROOT = '/home2/thecity2/public_html/followtheminchrist/media/'
@@ -196,7 +196,7 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# STATIC_URL = '/static/'
+STATIC_URL = '/static/'
 
 
 
@@ -205,39 +205,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-STORAGES = {
-    "default": {  # For media files
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-        "OPTIONS": {
-            "bucket_name": "tcgc-cms-bucket",
-            "location": "media",
-        },
-    },
-    "staticfiles": {  # For static files
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-        "OPTIONS": {
-            "bucket_name": "tcgc-cms-bucket",
-            "location": "static",
-        },
-    },
-}
 
 
-
-
-
-# settings.py
-
-AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME')
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com'  # Corrected line
-AWS_S3_FILE_OVERWRITE = env('AWS_S3_FILE_OVERWRITE', default=True)  # Added a default value
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-
-
-
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
