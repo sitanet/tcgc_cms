@@ -33,9 +33,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-abl9ym&=_py-b-t^-5z8%+!#p%iresgkgtvbh#f82xv%jw7d#p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['13.246.236.102']
 
 
 # Application definition
@@ -126,7 +126,8 @@ DATABASES = {
         'NAME': 'tcgc_cms_db',
         'USER': 'tcgc_cms_user',
         'PASSWORD': 'Completed1234',
-        'HOST': 'tcgc-cms-identifier.ctqg0cgman7j.af-south-1.rds.amazonaws.com',
+        # 'HOST': 'tcgc-cms-identifier.ctqg0cgman7j.af-south-1.rds.amazonaws.com',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
