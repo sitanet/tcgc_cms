@@ -124,7 +124,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'tcgc_cms_db',
-        'USER': 'tcgc_cms_user',
+        'USER': 'tcgc_cms_user2',
         'PASSWORD': 'Completed1234',
         # 'HOST': 'tcgc-cms-identifier.ctqg0cgman7j.af-south-1.rds.amazonaws.com',
         'HOST': 'localhost',
