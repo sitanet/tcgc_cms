@@ -33,9 +33,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-abl9ym&=_py-b-t^-5z8%+!#p%iresgkgtvbh#f82xv%jw7d#p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['13.246.236.102']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -107,36 +107,46 @@ AUTH_USER_MODEL = 'accounts.User'  # Replace 'accounts.User' with the correct ap
 
 # local host
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv('DATABASE_NAME'),
-#         'USER': os.getenv('DATABASE_USER'),
-#         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-#         'HOST': os.getenv('DATABASE_HOST'),
-#         'PORT': os.getenv('DATABASE_PORT'),
-#     }
-# }
-
-# AWS
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tcgc_cms_db',
-        'USER': 'tcgc_cms_user2',
-        'PASSWORD': 'Completed1234',
-        # 'HOST': 'tcgc-cms-identifier.ctqg0cgman7j.af-south-1.rds.amazonaws.com',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.getenv('DATABASE_NAME'),  # The name of your database
+        'USER': os.getenv('DATABASE_USER'),  # The database user
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),  # The user password
+        'HOST': 'postgres_db',  # The service name from docker-compose.yml
+        'PORT': '5432',  # Default PostgreSQL port
     }
 }
 
+# AWS
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'tcgc_cms_db',
+#         'USER': 'tcgc_cms_user2',
+#         'PASSWORD': 'Completed1234',
+#         'HOST': 'tcgc-cms-identifier.ctqg0cgman7j.af-south-1.rds.amazonaws.com',
+#         # 'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 
 
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'tcgc_db',
+#         'USER': 'postgres',
+#         'PASSWORD': 'People',
+#         'HOST': 'localhost',
+      
+#         'PORT': '5432',          
+#     }
+# }
 
 
 
