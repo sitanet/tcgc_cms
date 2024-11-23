@@ -30,12 +30,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-abl9ym&=_py-b-t^-5z8%+!#p%iresgkgtvbh#f82xv%jw7d#p'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.tcgcms.sitanetorbit.com', 'tcgcms.sitanetorbit.com','*','127.0.0.1']
+
+CFSF_TRUSTED_ORIGINS = ['www.tcgcms.sitanetorbit.com', 'tcgcms.sitanetorbit.com']
 
 
 # Application definition
@@ -98,6 +100,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'follow_up_project.wsgi.application'
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -107,30 +111,30 @@ AUTH_USER_MODEL = 'accounts.User'  # Replace 'accounts.User' with the correct ap
 
 # local host
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DATABASE_NAME'),  # The name of your database
-        'USER': os.getenv('DATABASE_USER'),  # The database user
-        'PASSWORD': os.getenv('DATABASE_PASSWORD'),  # The user password
-        'HOST': 'postgres_db',  # The service name from docker-compose.yml
-        'PORT': '5432',  # Default PostgreSQL port
-    }
-}
-
-# AWS
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'tcgc_cms_db',
-#         'USER': 'tcgc_cms_user2',
-#         'PASSWORD': 'Completed1234',
-#         'HOST': 'tcgc-cms-identifier.ctqg0cgman7j.af-south-1.rds.amazonaws.com',
-#         # 'HOST': 'localhost',
-#         'PORT': '5432',
+#         'NAME': os.getenv('DATABASE_NAME'),  # The name of your database
+#         'USER': os.getenv('DATABASE_USER'),  # The database user
+#         'PASSWORD': os.getenv('DATABASE_PASSWORD'),  # The user password
+#         'HOST': 'localhost',  # The service name from docker-compose.yml
+#         'PORT': '5432',  # Default PostgreSQL port
 #     }
 # }
+
+# AWS
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME', ''),
+        'USER': os.environ.get('DB_USER', ''),
+        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+        'HOST': os.environ.get('DB_HOST', ''),
+        # 'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 
@@ -184,8 +188,9 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # STATIC_ROOT = '/home2/thecity2/public_html/followtheminchrist/static/'
@@ -196,7 +201,7 @@ STATICFILES_DIRS = [
     # os.path.join(BASE_DIR, 'your_app/static'),
 ]
 
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 # MEDIA_ROOT = '/home2/thecity2/public_html/followtheminchrist/media/'
 # MEDIA_ROOT = BASE_DIR /'media'
 
@@ -207,14 +212,56 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 
 
 
 
+# STORAGES = {
+#     "default": {
+#         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",  # For media files
+#         "OPTIONS": {
+#             "location": "media",  # Folder within your S3 bucket for media files
+#         },
+#     },
+#     "staticfiles": {
+#         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",  # For static files
+#         "OPTIONS": {
+#             "location": "static",  # Folder within your S3 bucket for static files
+#         },
+#     },
+# }
 
 
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+STATIC_URL = 'static/'  
+MEDIA_URL = 'media/'
 
 
 
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', '')
+AWS_S3_REGION_NAME = 'af-south-1'  # Specify the correct region of your bucket
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.af-south-1.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+AWS_S3_FILE_OVERWRITE = False
+
+
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "location": "media",
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "location": "static",
+        },
+    },
+}
