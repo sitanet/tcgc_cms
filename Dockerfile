@@ -1,21 +1,21 @@
-# Use the preferred Python version
-FROM --platform=linux/amd64 python:3.11-bookworm
+# Base image
+FROM python:3.11-slim
 
-# Enable output buffering to see print statements immediately
-ENV PYTHONUNBUFFERED=1
+# Set working directory
+WORKDIR /app
 
-# Set the application port and working directory
-WORKDIR /tcgc_cms
-
-# Copy application dependencies file to container
+# Install dependencies
 COPY requirements.txt .
-
-# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy all project files into the container
+# Copy project files
 COPY . .
 
-# Expose the application port and set the startup command
+# Collect static files
+RUN python manage.py collectstatic --noinput
+
+# Expose the application port
 EXPOSE 8000
-CMD ["gunicorn", "follow_up_project.wsgi:application", "--bind", "0.0.0.0:8000"]
+
+# Run the Django application using Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "follow_up_project.wsgi:application"]
