@@ -6,3 +6,4 @@
 !.elasticbeanstalk/*.global.yml
 .terraform/
 .terraform/
+.terraform/
