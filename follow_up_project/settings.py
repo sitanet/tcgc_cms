@@ -124,13 +124,26 @@ AUTH_USER_MODEL = 'accounts.User'  # Replace 'accounts.User' with the correct ap
 
 # AWS
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DB_NAME', ''),
+#         'USER': os.environ.get('DB_USER', ''),
+#         'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+#         'HOST': os.environ.get('DB_HOST', ''),
+#         # 'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', ''),
-        'USER': os.environ.get('DB_USER', ''),
-        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-        'HOST': os.environ.get('DB_HOST', ''),
+        'NAME': 'tcgc_cms_db',
+        'USER': 'tcgc_cms_user',
+        'PASSWORD': 'Completed1234',
+        'HOST': 'database-1.ctqg0cgman7j.af-south-1.rds.amazonaws.com',
         # 'HOST': 'localhost',
         'PORT': '5432',
     }
