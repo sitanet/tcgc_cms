@@ -37,7 +37,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-CFSF_TRUSTED_ORIGINS = ['www.tcgcms.sitanetorbit.com', 'tcgcms.sitanetorbit.com']
+# CFSF_TRUSTED_ORIGINS = ['www.tcgcms.sitanetorbit.com', 'tcgcms.sitanetorbit.com']
 
 
 # Application definition
