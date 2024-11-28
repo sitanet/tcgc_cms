@@ -35,7 +35,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['64.226.85.96']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','164.92.239.39']
 
 # CFSF_TRUSTED_ORIGINS = ['www.tcgcms.sitanetorbit.com', 'tcgcms.sitanetorbit.com']
 
@@ -137,17 +137,30 @@ AUTH_USER_MODEL = 'accounts.User'  # Replace 'accounts.User' with the correct ap
 # }
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'tcgc_cms_db',
+#         'USER': 'tcgc_cms_user',
+#         'PASSWORD': 'Completed1234',
+#         'HOST': 'database-1.ctqg0cgman7j.af-south-1.rds.amazonaws.com',
+#         # 'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'tcgc_cms_db',
         'USER': 'tcgc_cms_user',
         'PASSWORD': 'Completed1234',
-        'HOST': 'database-1.ctqg0cgman7j.af-south-1.rds.amazonaws.com',
-        # 'HOST': 'localhost',
-        'PORT': '5432',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
+
 
 
 
