@@ -227,9 +227,15 @@ MEDIA_ROOT = '/home/bayo/tcgc_cms/media/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # settings.py
-STATIC_URL = '/static/'  # URL to serve static files
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # Directory where static files will be stored
+STATIC_URL = '/static/'
 
+# Define the location of your static folder
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Path to your static folder in the project root
+]
+
+# The location where collected static files will be stored
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
