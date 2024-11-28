@@ -225,6 +225,9 @@ MEDIA_URL = 'media/'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # STATIC_ROOT = '/home2/thecity2/public_html/followtheminchrist/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 # STATICFILES_DIRS = [
