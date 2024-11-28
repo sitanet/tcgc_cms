@@ -221,11 +221,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # STATIC_ROOT = '/home2/thecity2/public_html/followtheminchrist/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
-STATICFILES_DIRS = [
+# STATICFILES_DIRS = [
     
-    'follow_up_project/static',
-    # os.path.join(BASE_DIR, 'your_app/static'),
-]
+#     'follow_up_project/static',
+#     # os.path.join(BASE_DIR, 'your_app/static'),
+# ]
 
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = '/home2/thecity2/public_html/followtheminchrist/media/'
