@@ -218,9 +218,13 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+STATIC_URL = 'static/'  
+MEDIA_URL = 'media/'
 
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 # STATIC_ROOT = '/home2/thecity2/public_html/followtheminchrist/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 # STATICFILES_DIRS = [
     
 #     'follow_up_project/static',
@@ -261,8 +265,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-STATIC_URL = 'static/'  
-MEDIA_URL = 'media/'
+
 
 
 
