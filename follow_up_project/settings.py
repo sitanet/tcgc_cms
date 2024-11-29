@@ -35,7 +35,7 @@ SECRET_KEY = 'django-insecure-abl9ym&=_py-b-t^-5z8%+!#p%iresgkgtvbh#f82xv%jw7d#p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','164.92.239.39']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','207.154.197.128']
 
 # CFSF_TRUSTED_ORIGINS = ['www.tcgcms.sitanetorbit.com', 'tcgcms.sitanetorbit.com']
 
@@ -221,26 +221,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
  
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR/'media'
 
 # STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # settings.py
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR/'static'
 
-# Define the location of your static folder
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Path to your static folder in the project root
-]
 
-# The location where collected static files will be stored
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# STATIC_ROOT = '/home2/thecity2/public_html/followtheminchrist/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 # STATICFILES_DIRS = [
     
 #     'follow_up_project/static',
