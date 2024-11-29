@@ -227,9 +227,9 @@ MEDIA_ROOT = BASE_DIR/'media'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'follow_up_project' / 'static'
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'follow_up_project' / 'static'
+# ]
 STATIC_ROOT = '/home/bayo/tcgc_cms/static'
 
 
