@@ -220,18 +220,20 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
  
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR/'media'
+# settings.py
 
-# STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'follow_up_project' / 'static'
-]
-STATIC_ROOT = '/home/bayo/tcgc_cms/static'
 
+# Directories where static files are stored
+STATICFILES_DIRS = [
+    BASE_DIR / 'follow_up_project' / 'static',  # Ensure this path exists
+]
+
+# Directory where static files will be collected for production
+STATIC_ROOT = '/home/bayo/tcgc_cms/static'
 
 
 # STATICFILES_DIRS = [
