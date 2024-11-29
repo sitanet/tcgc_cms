@@ -226,10 +226,12 @@ MEDIA_ROOT = BASE_DIR/'media'
 # STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# settings.py
 STATIC_URL = '/static/'
-# STATIC_ROOT = BASE_DIR/'static'
-STATIC_ROOT = BASE_DIR / 'follow_up_project' / 'static'
+STATICFILES_DIRS = [
+    BASE_DIR / 'follow_up_project' / 'static'
+]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 
 
 # STATICFILES_DIRS = [
