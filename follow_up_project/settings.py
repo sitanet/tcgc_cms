@@ -35,14 +35,7 @@ SECRET_KEY = 'django-insecure-abl9ym&=_py-b-t^-5z8%+!#p%iresgkgtvbh#f82xv%jw7d#p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    'localhost',
-
-    '127.0.0.1',
-
-    'tcgcms.sitanetorbit.com',
-
-]
+ALLOWED_HOSTS = ['localhost','127.0.0.1','tcgcms.sitanetorbit.com','www.tcgcms.sitanetorbit.com']
 
 
 
