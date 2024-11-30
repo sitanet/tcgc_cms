@@ -43,6 +43,7 @@ ALLOWED_HOSTS = [
 ]
 
 
+
 CORS_ALLOWED_ORIGINS = [
     "https://tcgcms.sitanetorbit.com",
     "https://www.tcgcms.sitanetorbit.com",
