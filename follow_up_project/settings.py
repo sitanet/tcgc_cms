@@ -33,7 +33,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-abl9ym&=_py-b-t^-5z8%+!#p%iresgkgtvbh#f82xv%jw7d#p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -43,6 +43,10 @@ ALLOWED_HOSTS = [
 ]
 
 
+CORS_ALLOWED_ORIGINS = [
+    "https://tcgcms.sitanetorbit.com",
+    "https://www.tcgcms.sitanetorbit.com",
+]
 
 # CFSF_TRUSTED_ORIGINS = ['www.tcgcms.sitanetorbit.com', 'tcgcms.sitanetorbit.com']
 
