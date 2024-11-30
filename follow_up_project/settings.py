@@ -36,12 +36,12 @@ SECRET_KEY = 'django-insecure-abl9ym&=_py-b-t^-5z8%+!#p%iresgkgtvbh#f82xv%jw7d#p
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost', 
-    '127.0.0.1', 
-    '207.154.197.128', 
-    'tcgcms.sitanetorbit.com', 
-    'www.tcgcms.sitanetorbit.com'
+    'localhost',
+    '127.0.0.1',
+    'tcgcms.sitanetorbit.com',
+    'www.tcgcms.sitanetorbit.com',
 ]
+
 
 
 # CFSF_TRUSTED_ORIGINS = ['www.tcgcms.sitanetorbit.com', 'tcgcms.sitanetorbit.com']
