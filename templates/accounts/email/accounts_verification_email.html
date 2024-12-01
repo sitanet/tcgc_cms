@@ -1,66 +1,126 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <link rel="stylesheet" type="text/css" hs-webfonts="true" href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans:i,b,bi">
-    <meta property="og:title" content="Email template">  
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-    <style type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate Your Account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f3f5f9;
+            font-family: 'Poppins', Arial, sans-serif;
+            color: #333;
+        }
+
         #email {
-            margin: auto;
-            width: 600px;
-            background-color: #f7f7f7;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }  
-        .activate-btn{
-            font: inherit;
-            background-color: #3498db;
-            border: none;
-            padding: 10px 20px;
+            max-width: 600px;
+            margin: 40px auto;
+            background: linear-gradient(135deg, #ffffff, #f9fbff);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        #email header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #ffffff;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        #email header img {
+            max-width: 120px;
+            margin-bottom: 10px;
+        }
+
+        #email header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        #email .content {
+            padding: 25px 30px;
+            text-align: center;
+        }
+
+        #email .content h3 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        #email .content p {
+            margin: 20px 0;
+            font-size: 16px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        #email .content a {
+            display: inline-block;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #ffffff;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 900;
-            border-radius: 5px; 
             text-decoration: none;
-            color: #fff;
-        }      
-    </style>    
-</head>    
-<body bgcolor="#f0f0f0" style="width: 60%; margin: auto 0; padding:0; font-family:Open+Sans, sans-serif; font-size:16px; color:#333; word-break:break-word">
-    <p>Hi, <h3>{{user.first_name}}</h3></p> 
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #email .content a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        #email footer {
+            background-color: #f3f5f9;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #777;
+            border-top: 1px solid #ddd;
+        }
+
+        #email footer a {
+            color: #6a11cb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        #email footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
     <div id="email">
-        <table role="presentation" width="100%">
-            <tr>
-                <td align="center" style="color: #333;">
-                    <img alt="Logo" src="https://thecitygatechurch.org/static/images2/logo-red.png" width="200px" align="middle">
-                </td>
-            </tr>
-        </table>
+        <header>
+            <!-- <img src="https://thecitygatechurch.org/static/images2/logo-red.png" alt="Logo"> -->
+            <h2>Activate Your Account</h2>
+        </header>
 
-        <table bgcolor="#fff" width="100%" role="presentation" border="0" cellpadding="0" cellspacing="10px" style="padding: 30px;">
-            <tr>
-                <td>
-                    <h2 style="text-align: center; color: #333;">Activate Your Account</h2>
-                    <p style="text-align: center; color: #666;">Please click on below link to verify your email address to activate your account.</p>
-                    <div style="text-align: center;">
-                        <a href="http://{{domain}}{% url 'activate' uidb64=uid token=token %}" class="activate-btn" style="color: #fff;">Activate Now</a>
-                    </div>
-                </td> 
-            </tr>
-        </table>
+        <div class="content">
+            <h3>Hello, {{ user.first_name }}</h3>
+            <p>Thank you for joining us! Please click the button below to verify your email address and activate your account. We’re excited to have you with us!</p>
+            <a href="http://{{ domain }}{% url 'activate' uidb64=uid token=token %}">Activate Now</a>
+        </div>
 
-        <table role="presentation" bgcolor="#333" width="100%">
-            <tr>
-                <td align="center" style="padding: 15px; color: #fff;">
-                    <p>© {% now "Y" %} The CityGate Follow Up Team, All Rights Reserved.</p>
-                    <a href="https://thecitygatechurch.org/" style="color:#fff;">Visit Website</a>      
-                </td>
-            </tr>
-        </table> 
+        <footer>
+            <p>&copy; {% now "Y" %} The CityGate Church Follow-Up Team. All Rights Reserved.</p>
+            <p><a href="https://thecitygatechurch.org/">Visit Our Website</a></p>
+        </footer>
     </div>
 </body>
+
 </html>
