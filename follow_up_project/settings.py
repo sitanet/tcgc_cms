@@ -335,3 +335,4 @@ EMAIL_HOST_PASSWORD = 'msn4Q~QCsRDK'  # Your email password or app-specific pass
 DEFAULT_FROM_EMAIL = 'info@thecitygatechurch.org'  # Default from email address
 
 
+     
