@@ -160,6 +160,88 @@ import requests
 
 
 
+# def registeruser(request):
+#     if request.method == 'POST':
+#         form = UserForm(request.POST)
+#         if form.is_valid():
+#             first_name = form.cleaned_data['first_name']
+#             last_name = form.cleaned_data['last_name']
+#             username = form.cleaned_data['username']
+#             email = form.cleaned_data['email']
+#             password = form.cleaned_data['password']
+#             phone_number = form.cleaned_data['phone_number']
+#             role = form.cleaned_data['role']
+
+#             try:
+#                 user = User.objects.create_user(
+#                     first_name=first_name,
+#                     last_name=last_name,
+#                     username=username,
+#                     email=email,
+#                     role=role,
+#                     phone_number=phone_number,
+#                     password=password
+#                 )
+#                 user.save()
+#                 messages.success(request, 'You have successfully registered.')
+
+#                 # Send verification email
+#                 mail_subject = 'Please activate your account'
+#                 email_template = 'accounts/email/accounts_verification_email.html'
+#                 send_verification_email(request, user, mail_subject, email_template)
+#                 messages.success(request, 'Your account has been registered successfully!')
+
+#                 # Send SMS via Termii
+#                 print(f'Sending SMS to {phone_number}...')
+#                 sms_body = f"Hello {first_name}, your account has been registered successfully on TCGC MOS. Please check your email to activate!"
+#                 termii_api_key = settings.TERMII_API_KEY
+#                 termii_sender_id = settings.TERMII_SENDER_ID
+#                 termii_url = 'https://api.ng.termii.com/api/sms/send'
+
+#                 payload = {
+#                     "to": phone_number,
+#                     "from": termii_sender_id,
+#                     "sms": sms_body,
+#                     "type": "plain",
+#                     "channel": "dnd",
+#                     "api_key": termii_api_key
+#                 }
+
+#                 response = requests.post(termii_url, json=payload)
+#                 response_data = response.json()
+#                 if response.status_code == 200 and response_data.get('status') == 'success':
+#                     print('SMS sent successfully')
+#                 else:
+#                     error_message = response_data.get('message', 'Failed to send SMS')
+#                     print(f'Error sending SMS: {error_message}')
+#                     messages.error(request, f'Failed to send SMS: {error_message}')
+
+#             except Exception as e:
+#                 messages.error(request, f'Failed to register user: {e}')
+#                 print(f'Error: {e}')
+#                 return redirect('registeruser')
+
+#             return redirect('registeruser')
+#         else:
+#             print('Invalid form')
+#             print(form.errors)
+#     else:
+#         form = UserForm()
+
+#     context = {
+#         'form': form,
+#     }
+#     return render(request, 'accounts/registeruser.html', context)
+
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.conf import settings
+import requests
+from .forms import UserForm
+from .models import User
+from .utils import send_verification_email  # Ensure this utility function exists
+
 def registeruser(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
@@ -172,6 +254,7 @@ def registeruser(request):
             phone_number = form.cleaned_data['phone_number']
             role = form.cleaned_data['role']
 
+            # Step 1: Create the User
             try:
                 user = User.objects.create_user(
                     first_name=first_name,
@@ -184,56 +267,61 @@ def registeruser(request):
                 )
                 user.save()
                 messages.success(request, 'You have successfully registered.')
+            except Exception as e:
+                messages.error(request, f'Error creating user: {e}')
+                print(f'Error creating user: {e}')
+                return redirect('registeruser')
 
-                # Send verification email
+            # Step 2: Send Verification Email
+            try:
                 mail_subject = 'Please activate your account'
                 email_template = 'accounts/email/accounts_verification_email.html'
                 send_verification_email(request, user, mail_subject, email_template)
-                messages.success(request, 'Your account has been registered successfully!')
+                messages.success(request, 'Verification email sent successfully!')
+            except Exception as e:
+                messages.error(request, f'Error sending verification email: {e}')
+                print(f'Error sending verification email: {e}')
 
-                # Send SMS via Termii
+            # Step 3: Send SMS via Termii
+            try:
                 print(f'Sending SMS to {phone_number}...')
-                sms_body = f"Hello {first_name}, your account has been registered successfully on TCGC MOS. Please check your email to activate!"
-                termii_api_key = settings.TERMII_API_KEY
-                termii_sender_id = settings.TERMII_SENDER_ID
+                sms_body = (f"Hello {first_name}, your account has been registered successfully on TCGC MOS. "
+                            "Please check your email to activate!")
                 termii_url = 'https://api.ng.termii.com/api/sms/send'
-
                 payload = {
                     "to": phone_number,
-                    "from": termii_sender_id,
+                    "from": settings.TERMII_SENDER_ID,
                     "sms": sms_body,
                     "type": "plain",
                     "channel": "dnd",
-                    "api_key": termii_api_key
+                    "api_key": settings.TERMII_API_KEY
                 }
-
                 response = requests.post(termii_url, json=payload)
                 response_data = response.json()
+
                 if response.status_code == 200 and response_data.get('status') == 'success':
                     print('SMS sent successfully')
                 else:
                     error_message = response_data.get('message', 'Failed to send SMS')
                     print(f'Error sending SMS: {error_message}')
                     messages.error(request, f'Failed to send SMS: {error_message}')
-
             except Exception as e:
-                messages.error(request, f'Failed to register user: {e}')
-                print(f'Error: {e}')
-                return redirect('registeruser')
+                messages.error(request, f'Error sending SMS: {e}')
+                print(f'Error sending SMS: {e}')
 
-            return redirect('registeruser')
+            # Redirect after successful registration
+            return redirect('login')
         else:
-            print('Invalid form')
+            # Handle form errors
+            messages.error(request, 'Please correct the errors below.')
+            print('Invalid form submission')
             print(form.errors)
     else:
         form = UserForm()
 
-    context = {
-        'form': form,
-    }
+    # Render the form template
+    context = {'form': form}
     return render(request, 'accounts/registeruser.html', context)
-
-
 
 
 
