@@ -234,13 +234,7 @@ import requests
 #     return render(request, 'accounts/registeruser.html', context)
 
 
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.conf import settings
-import requests
-from .forms import UserForm
-from .models import User
-from .utils import send_verification_email  # Ensure this utility function exists
+
 
 def registeruser(request):
     if request.method == 'POST':
