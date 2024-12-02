@@ -327,11 +327,11 @@ STATIC_ROOT = '/home/bayo/tcgc_cms/static'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mail.thecitygatechurch.org'  # Use your email provider's SMTP server
-EMAIL_PORT = 465  # Port for TLS
+EMAIL_PORT = 465  # Port for SSL
 EMAIL_USE_TLS = False  # TLS is not used with SSL
 EMAIL_USE_SSL = True  # SSL is used with port 465
 EMAIL_HOST_USER = 'info@thecitygatechurch.org'  # Your email address
-EMAIL_HOST_PASSWORD = 'msn4Q~QCsRDK'  # Your email password
-DEFAULT_FROM_EMAIL = 'The CityGate Church'
+EMAIL_HOST_PASSWORD = 'msn4Q~QCsRDK'  # Your email password or app-specific password
+DEFAULT_FROM_EMAIL = 'info@thecitygatechurch.org'  # Default from email address
 
 
