@@ -243,7 +243,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Directory where static files will be collected for production
 # STATIC_ROOT = '/home/bayo/tcgc_cms/static'
 STATIC_URL = '/static/'
-STATIC_ROOT BASE_DIR /'static'
+STATIC_ROOT = BASE_DIR /'static'
 
 # STATICFILES_DIRS = [
     
